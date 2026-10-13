@@ -33,3 +33,37 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
+
+@theme {
+  --animate-modal-backdrop: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-modal-card: modalScaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modalScaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-backdrop-anim {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+.modal-content-anim {
+  animation: modalScaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+

@@ -58,7 +58,7 @@ export const projectsStyles = {
   headingAccent: "w-20 h-1 bg-gradient-to-r from-purple-500 to-emerald-500 mx-auto mb-6 rounded-full",
   subtitle: "text-slate-400 text-center mb-14 max-w-2xl mx-auto text-sm sm:text-base",
   grid: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",
-  card: "bg-slate-950 border border-slate-800/70 rounded-2xl overflow-hidden hover:border-purple-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/5 flex flex-col group",
+  card: "bg-slate-950 border border-slate-800/70 rounded-2xl overflow-hidden hover:border-purple-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/5 flex flex-col group cursor-pointer",
   
   // Image and Carousel Styles
   imageContainer: "relative w-full h-56 bg-slate-900 overflow-hidden cursor-pointer",
@@ -87,8 +87,8 @@ export const projectsStyles = {
   linkButton: "text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors font-medium cursor-pointer",
 
   // Modal for Project Details & Images
-  modalOverlay: "fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6",
-  modalContent: "relative max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]",
+  modalOverlay: "fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-anim",
+  modalContent: "relative max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] modal-content-anim",
   modalClose: "absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-950/80 text-white flex items-center justify-center hover:bg-slate-800 transition-colors border border-slate-700",
   modalScrollArea: "overflow-y-auto w-full",
   modalImageWrapper: "relative w-full h-[45vh] min-h-[260px] max-h-[460px] bg-slate-950 flex items-center justify-center p-3 border-b border-slate-800",
@@ -129,6 +129,14 @@ export const certStyles = {
   // Footer
   cardFooter: "pt-4 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-500",
   viewBtn: "text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1.5 font-medium transition-colors cursor-pointer",
+
+  // Modal
+  modalOverlay: "fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-anim",
+  modalContent: "relative max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl modal-content-anim",
+  modalClose: "absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-950/80 text-white flex items-center justify-center hover:bg-slate-800 transition-colors border border-slate-700",
+  modalImageWrapper: "relative w-full h-[65vh] max-h-[650px] bg-slate-950 flex items-center justify-center p-4",
+  modalImage: "max-h-full max-w-full object-contain rounded-lg",
+  modalCaption: "p-4 bg-slate-900 text-center border-t border-slate-800",
 };
 
 // --- Footer ---

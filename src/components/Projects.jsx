@@ -20,7 +20,7 @@ const projectsData = [
   },
   {
     id: "pangan-predict",
-    title: "PanganPredict: Deteksi & Peramalan Harga Komoditas",
+    title: "PanganPredict: Deteksi & Prediksi Harga Komoditas",
     category: "AI Computer Vision & Time-Series",
     description:
       "Untuk mengatasi masalah fluktuasi harga bahan pokok di Jawa Tengah yang sering naik-turun dan sulit ditebak, saya menciptakan PanganPredict, sebuah ekosistem aplikasi pintar berbasis Kecerdasan Buatan (AI) yang tersedia untuk website dan mobile.\n\nAplikasi ini sangat mudah digunakan, pengguna cukup memfoto sembako menggunakan kamera ponsel, lalu sistem akan otomatis mengenali jenis barang tersebut dengan akurasi pengenalan gambar di atas 95%, menampilkan harga saat ini, serta meramalkan pergerakan harganya untuk 7 hari ke depan.\n\nDi balik kemudahan tersebut, PanganPredict ditenagai oleh teknologi AI tangguh yang telah saya latih secara khusus menggunakan data historis pergerakan harga selama 9 tahun terakhir, sehingga mampu membaca pola ekonomi dan menghasilkan prediksi harian yang sangat akurat.\n\nSeluruh hasil prediksi rumit ini kemudian disajikan melalui antarmuka yang modern dan grafik visual yang interaktif, menjadikannya alat bantu yang mudah dipahami oleh masyarakat awam maupun analis ekonomi.",
@@ -125,13 +125,14 @@ export default function Projects() {
             const currentImg = project.images[currentImgIdx];
 
             return (
-              <div key={project.id} className={styles.card}>
+              <div
+                key={project.id}
+                className={styles.card}
+                onClick={() => openProjectModal(project, currentImgIdx)}
+                title="Klik untuk melihat detail & foto proyek"
+              >
                 {/* Image Section with Carousel & Zoom */}
-                <div
-                  className={styles.imageContainer}
-                  onClick={() => openProjectModal(project, currentImgIdx)}
-                  title="Klik untuk melihat detail & foto"
-                >
+                <div className={styles.imageContainer}>
                   <span className={styles.categoryBadge}>{project.category}</span>
 
                   <div className={styles.imageWrapper}>
@@ -188,15 +189,6 @@ export default function Projects() {
                       {project.description}
                     </p>
 
-                    {/* Opens Modal Dialog */}
-                    {/* <button
-                      type="button"
-                      onClick={() => openProjectModal(project, currentImgIdx)}
-                      className={styles.expandBtn}
-                    >
-                      Baca selengkapnya...
-                    </button> */}
-
                     {/* Tech Stack Tags */}
                     <div className={styles.tagContainer}>
                       {project.tags.map((tag) => (
@@ -210,14 +202,10 @@ export default function Projects() {
                   {/* Footer Action */}
                   <div className={styles.cardFooter}>
                     <span>Slide {currentImgIdx + 1} dari {project.images.length}</span>
-                    <button
-                      type="button"
-                      onClick={() => openProjectModal(project, currentImgIdx)}
-                      className={styles.linkButton}
-                    >
+                    <span className={styles.linkButton}>
                       <Maximize2 size={13} />
-                      Baca Selengkapnya...
-                    </button>
+                      Lihat Detail Proyek
+                    </span>
                   </div>
                 </div>
               </div>
@@ -275,6 +263,7 @@ export default function Projects() {
                             src={img.src}
                             alt={img.alt}
                             fill
+                            sizes="80px"
                             className="object-cover"
                           />
                         </div>

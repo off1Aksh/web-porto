@@ -117,31 +117,31 @@ export default function Certifications() {
       {/* Modal Full Image Preview */}
       {modalCert && (
         <div
-          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+          className={styles.modalOverlay}
           onClick={() => setModalCert(null)}
         >
           <div
-            className="relative max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl"
+            className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
-              className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-950/80 text-white flex items-center justify-center hover:bg-slate-800 transition-colors border border-slate-700"
+              className={styles.modalClose}
               onClick={() => setModalCert(null)}
               aria-label="Tutup preview"
             >
               <X size={20} />
             </button>
-            <div className="relative w-full h-[65vh] max-h-[650px] bg-slate-950 flex items-center justify-center p-4">
+            <div className={styles.modalImageWrapper}>
               <Image
                 src={modalCert.image}
                 alt={modalCert.title}
                 width={1200}
                 height={800}
-                className="max-h-full max-w-full object-contain rounded-lg"
+                className={styles.modalImage}
               />
             </div>
-            <div className="p-4 bg-slate-900 text-center border-t border-slate-800">
+            <div className={styles.modalCaption}>
               <h4 className="font-semibold text-white text-base">{modalCert.title}</h4>
               <p className="text-xs text-slate-400 mt-1">{modalCert.issuer}</p>
             </div>
