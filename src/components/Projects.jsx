@@ -11,71 +11,71 @@ const projectsData = [
     title: "IT Support Ticketing & Inventory System",
     category: "Full-Stack & AI Automation",
     description:
-      "Sistem Ticketing & Manajemen Inventaris IT Support berskala enterprise di PT Dtech Inovasi Indonesia untuk memecahkan masalah pelaporan kendala teknis yang sebelumnya tidak terstruktur karena hanya mengandalkan pesan manual WhatsApp.\n\nSebagai solusi, kami membangun aplikasi full-stack menggunakan antarmuka responsif berbasis React.js dan backend Laravel 12, lengkap dengan restrukturisasi keamanan memakai JWT dan Google OAuth untuk mengatasi kendala integrasi API antar layanan.\n\nUntuk memastikan adaptasi pengguna yang mulus tanpa mengubah kebiasaan lama, sistem ini diintegrasikan dengan workflow automation N8N dan chatbot agen AI DeepSeek, sehingga karyawan dapat membuat tiket pelaporan secara otomatis hanya dengan mengirim pesan WhatsApp.\n\nSelain itu, sistem ini berhasil mendigitalisasi manajemen aset perusahaan melalui pelacakan inventaris berbasis pemindaian QR Code yang terhubung langsung dengan dashboard analitik komprehensif untuk memantau performa teknisi dan riwayat aset secara real-time.",
+      "Enterprise-scale IT Support Ticketing & Inventory Management System at PT Dtech Inovasi Indonesia to solve the problem of unstructured technical issue reporting that previously relied solely on manual WhatsApp messages.\n\nAs a solution, we built a full-stack application using a responsive React.js-based interface and Laravel 12 backend, complete with JWT-based security restructuring and Google OAuth to address API integration challenges across services.\n\nTo ensure smooth user adoption without changing old habits, this system integrates with N8N workflow automation and DeepSeek AI agent chatbot, allowing employees to create reports automatically by simply sending a WhatsApp message.\n\nAdditionally, the system successfully digitalizes company asset management through QR code-based inventory tracking that connects directly to a comprehensive analytics dashboard for real-time monitoring of technician performance and asset history.",
     tags: ["React.js", "Laravel 12", "JWT / OAuth", "N8N Automation", "DeepSeek AI", "QR Code", "PostgreSQL"],
     images: [
-      { src: "/projects/INTERN 1.png", alt: "Admin Dashboard IT Support Ticket & Inventory" },
-      { src: "/projects/INTERN 2.png", alt: "Portal Submit Ticket Request Pengguna" },
+      { src: "/projects/INTERN 1.png", alt: "IT Support Ticket & Inventory Admin Dashboard" },
+      { src: "/projects/INTERN 2.png", alt: "User Ticket Request Portal" },
     ],
   },
   {
     id: "pangan-predict",
-    title: "PanganPredict: Deteksi & Prediksi Harga Komoditas",
+    title: "PanganPredict: Commodity Price Detection & Forecasting",
     category: "AI Computer Vision & Time-Series",
     description:
-      "Untuk mengatasi masalah fluktuasi harga bahan pokok di Jawa Tengah yang sering naik-turun dan sulit ditebak, saya menciptakan PanganPredict, sebuah ekosistem aplikasi pintar berbasis Kecerdasan Buatan (AI) yang tersedia untuk website dan mobile.\n\nAplikasi ini sangat mudah digunakan, pengguna cukup memfoto sembako menggunakan kamera ponsel, lalu sistem akan otomatis mengenali jenis barang tersebut dengan akurasi pengenalan gambar di atas 95%, menampilkan harga saat ini, serta meramalkan pergerakan harganya untuk 7 hari ke depan.\n\nDi balik kemudahan tersebut, PanganPredict ditenagai oleh teknologi AI tangguh yang telah saya latih secara khusus menggunakan data historis pergerakan harga selama 9 tahun terakhir, sehingga mampu membaca pola ekonomi dan menghasilkan prediksi harian yang sangat akurat.\n\nSeluruh hasil prediksi rumit ini kemudian disajikan melalui antarmuka yang modern dan grafik visual yang interaktif, menjadikannya alat bantu yang mudah dipahami oleh masyarakat awam maupun analis ekonomi.",
+      "To address frequent price fluctuations of staple foods in Central Java that are difficult to predict, I created PanganPredict, an intelligent AI-powered application available on web and mobile platforms.\n\nThe application is easy to use—users simply take a photo of staple goods with their mobile camera, and the system automatically recognizes the item type with image recognition accuracy above 95%, displays current prices, and forecasts price movements for the next 7 days.\n\nBehind this ease of use, PanganPredict is powered by robust AI that I trained specifically using 9 years of historical price movement data, enabling it to read economic patterns and produce highly accurate daily forecasts.\n\nAll this complex forecasting is presented through a modern interface and interactive visual graphics, making it an easy-to-understand tool for both laypeople and economic analysts.",
     tags: ["Computer Vision (AI)", "Time-Series Forecasting", "React Native / Web", "Python / FastAPI", "Machine Learning"],
     images: [
-      { src: "/projects/PANGANPREDICT 1.png", alt: "Aplikasi PanganPredict Deteksi Bawang Putih & Prediksi Harga" },
-      { src: "/projects/PANGANPREDICT 2.png", alt: "Dashboard Analisis & Tren Prediksi Harga Pangan" },
+      { src: "/projects/PANGANPREDICT 2.png", alt: "PanganPredict Garlic Detection & Price Forecast App" },
+      { src: "/projects/PANGANPREDICT 1.png", alt: "Price Analysis & Forecast Trend Dashboard" },
     ],
   },
   {
     id: "pbl-mmpi",
-    title: "Platform Tes Psikologi MMPI-2 Online",
+    title: "Online MMPI-2 Psychology Test Platform",
     category: "Web Application & Healthcare",
     description:
-      "Untuk memfasilitasi pelaksanaan tes psikologi MMPI-2 yang dikenal sangat panjang karena berisi 567 pertanyaan, saya dan tim dalam Project Based Learning (PBL) mengembangkan sebuah platform tes psikologi berbasis website yang praktis dan mudah diakses.\n\nSebagai pengembang antarmuka (Frontend Developer) dalam proyek kolaboratif ini, fokus utama saya adalah memastikan peserta tes tidak merasa stres atau terbebani saat harus menjawab ratusan pertanyaan tersebut secara bertahap.\n\nSebagai solusinya, saya merancang dan membangun tampilan visual aplikasi yang sangat responsif, rapi, dan nyaman dioperasikan dari berbagai perangkat. Melalui desain yang modern dan ramah pengguna, platform ini tidak hanya membuat proses pengisian tes yang masif menjadi jauh lebih lancar dan ringan, tetapi juga mampu menyajikan hasil akhir berupa analisis profil kepribadian pengguna dengan tampilan yang jelas dan informatif.",
+      "To facilitate the administration of the lengthy MMPI-2 psychology test containing 567 questions, my team and I developed a practical and easily accessible web-based psychology testing platform for our Project Based Learning (PBL).\n\nAs the Frontend Developer in this collaborative project, my main focus was to ensure test-takers do not feel stressed or burdened when answering hundreds of questions gradually.\n\nAs a solution, I designed and built a highly responsive, clean, and comfortable visual interface operable from various devices. Through a modern and user-friendly design, this platform not only makes the massive test-filling process much smoother and lighter, but also presents final personality profile analysis results in a clear and informative manner.",
     tags: ["Laravel", "PHP", "Responsive UI", "Tailwind / Bootstrap", "Assessment System"],
     images: [
-      { src: "/projects/PBL 1.png", alt: "Halaman Utama Portal Tes Psikologi MMPI-2 Online" },
-      { src: "/projects/PBL 2.png", alt: "Antarmuka Lembar Pertanyaan Ujian Psikotes Online" },
+      { src: "/projects/PBL 1.png", alt: "Online MMPI-2 Psychology Test Portal Homepage" },
+      { src: "/projects/PBL 2.png", alt: "Online Psychology Test Question Interface" },
     ],
   },
   {
     id: "odoo-erp",
-    title: "Sistem Enterprise Odoo ERP: Homework Screen Printing",
+    title: "Enterprise Odoo ERP System: Homework Screen Printing",
     category: "Enterprise System & CRM",
     description:
-      "Untuk mendigitalisasi operasional bisnis perusahaan, saya berkontribusi dalam merancang dan mengembangkan sistem enterprise terintegrasi untuk Homework Screen Printing menggunakan platform Odoo.\n\nDalam proyek ini, saya berfokus penuh pada perancangan sistem dan pengembangan modul CRM (Customer Relationship Management).\n\nModul yang saya bangun berfungsi untuk mempermudah perusahaan dalam mengelola data pelanggan, melacak riwayat interaksi klien, dan menjaga hubungan komunikasi bisnis secara terpusat agar jauh lebih efektif dan terorganisir.",
-    tags: ["Odoo ERP", "Python", "CRM Module", "Database PostgreSQL", "Business Process Optimization"],
+      "To digitize business operations, I contributed to designing and developing an integrated enterprise system for Homework Screen Printing using the Odoo platform.\n\nIn this project, I focused entirely on system design and CRM (Customer Relationship Management) module development.\n\nThe module I built helps the company manage customer data, track client interaction history, and maintain centralized business communication for far more effective and organized relationship management.",
+    tags: ["Odoo ERP", "Python", "CRM Module", "PostgreSQL Database", "Business Process Optimization"],
     images: [
-      { src: "/projects/ODOO 1.png", alt: "Landing Page & Web Portal Homework Screen Printing" },
-      { src: "/projects/ODOO 2.png", alt: "Katalog Produk & Konfigurasi Pesanan Sablon Odoo" },
+      { src: "/projects/ODOO 1.png", alt: "Landing Page & Web Portal for Homework Screen Printing" },
+      { src: "/projects/ODOO 2.png", alt: "Odoo Product Catalog & Order Configuration" },
     ],
   },
   {
     id: "smart-parking",
-    title: "Sistem Parkir Cerdas AIoT (Automatic License Plate Recognition)",
+    title: "AIoT Smart Parking System (Automatic License Plate Recognition)",
     category: "Artificial Intelligence of Things (AIoT)",
     description:
-      "Untuk mengatasi masalah efisiensi, antrean, dan kebutuhan tenaga kerja manual pada sistem parkir tradisional, saya berpartisipasi dalam pengembangan Sistem Parkir Cerdas berbasis Artificial Intelligence of Things (AIoT).\n\nSistem ini bekerja secara otomatis tanpa campur tangan manusia. Ketika kendaraan mendekat, sensor ultrasonik akan mendeteksinya dan memicu kamera ESP32-CAM untuk mengambil gambar plat nomor kendaraan.\n\nGambar tersebut kemudian dikirim ke Virtual Private Server (VPS) dan diproses menggunakan teknologi PyTesseract dan OpenCV (Optical Character Recognition) untuk mengenali teks pada plat nomor secara presisi (dengan tingkat akurasi pengenalan mencapai 100% pada kondisi optimal).\n\nData plat yang terbaca lalu divalidasi ke database cloud Firebase secara real-time. Jika data valid, sistem akan langsung memerintahkan motor servo untuk membuka palang pintu gerbang dalam hitungan detik. Sistem terintegrasi ini terbukti mampu mempercepat alur parkir sekaligus memangkas biaya operasional.",
+      "To address efficiency, queueing, and manual labor requirements in traditional parking systems, I participated in developing an AIoT-based Smart Parking System.\n\nThis system operates automatically without human intervention. When a vehicle approaches, ultrasonic sensors detect it and trigger the ESP32-CAM camera to capture the vehicle's license plate image.\n\nThe image is then sent to a Virtual Private Server (VPS) and processed using PyTesseract and OpenCV (Optical Character Recognition) technology to recognize license plate text with high precision (100% accuracy under optimal conditions).\n\nThe recognized plate data is validated against a cloud Firebase database in real-time. If valid, the system immediately commands a servo motor to open the gate within seconds. This integrated system has proven to accelerate parking flow while reducing operational costs.",
     tags: ["ESP32-CAM", "PyTesseract OCR", "OpenCV", "Firebase Cloud DB", "Servo Motor", "Ultrasonic Sensor"],
     images: [
-      { src: "/projects/IOT PARKING 1.png", alt: "Skematik Rangkaian Hardware IoT Parkir Cerdas ESP32 & Display" },
-      { src: "/projects/IOT PARKING 2.png", alt: "Pengujian OCR Pengenalan Plat Nomor Kendaraan Otomatis" },
+      { src: "/projects/IOT PARKING 1.png", alt: "Smart IoT Parking Hardware Circuit Schematic ESP32 & Display" },
+      { src: "/projects/IOT PARKING 2.png", alt: "Automatic Vehicle License Plate OCR Testing" },
     ],
   },
   {
     id: "smart-garbage",
-    title: "Gerobak Sampah Pintar Berbasis IoT & Load Cell",
+    title: "Smart IoT-Based Trash Cart with Load Cell",
     category: "Embedded System & Hardware",
     description:
-      "Untuk mencegah kelebihan muatan yang sering membuat gerobak konvensional cepat rusak, saya dan rekan saya merakit prototipe Gerobak Sampah Pintar berbasis perangkat keras dan IoT.\n\nSistem ini ditenagai oleh Arduino Nano dan empat sensor berat (load cell) untuk memantau kapasitas muatan secara real-time.\n\nJika berat sampah mencapai batas maksimal, panel kontrol yang kami rancang akan secara otomatis menyalakan lampu peringatan dan membunyikan alarm buzzer. Inovasi praktis ini memastikan gerobak lebih awet sekaligus membuat pekerjaan petugas pengumpul sampah menjadi jauh lebih aman, terukur, dan efisien.",
+      "To prevent overloading that frequently causes conventional carts to break down, my colleague and I assembled a prototype of a Smart Trash Cart based on hardware and IoT.\n\nThe system is powered by an Arduino Nano and four weight sensors (load cells) for real-time load capacity monitoring.\n\nWhen trash weight reaches the maximum limit, the control panel we designed automatically activates warning lights and sounds a buzzer alarm. This practical innovation ensures longer cart life and makes garbage collectors' work safer, more measurable, and efficient.",
     tags: ["Arduino Nano", "Load Cell Sensors", "Buzzer Alarm", "Indicator Lights", "Hardware Prototyping"],
     images: [
-      { src: "/projects/SMART GARBAGE 1.png", alt: "Prototipe Fisik Gerobak Sampah Pintar dengan Panel Kontrol" },
-      { src: "/projects/SMART GARBAGE 2.png", alt: "Instalasi Sensor Berat Load Cell & Pengujian Beban" },
+      { src: "/projects/SMART GARBAGE 1.png", alt: "Physical Prototype of Smart Trash Cart with Control Panel" },
+      { src: "/projects/SMART GARBAGE 2.png", alt: "Load Cell Weight Sensor Installation & Load Testing" },
     ],
   },
 ];
@@ -120,10 +120,10 @@ export default function Projects() {
   return (
     <section id="projects" className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.heading}>Portofolio Proyek Unggulan</h2>
+        <h2 className={styles.heading}>Projects Portfolio</h2>
         <div className={styles.headingAccent} />
         <p className={styles.subtitle}>
-          Koleksi proyek nyata yang mencakup pengembangan sistem web enterprise, kecerdasan buatan (AI), hingga prototipe hardware IoT terpadu.
+          Collection of real projects covering enterprise web development, artificial intelligence (AI), and integrated IoT hardware prototypes.
         </p>
 
         <div className={styles.grid}>
@@ -208,10 +208,10 @@ export default function Projects() {
 
                   {/* Footer Action */}
                   <div className={styles.cardFooter}>
-                    <span>Slide {currentImgIdx + 1} dari {project.images.length}</span>
+                    <span>Slide {currentImgIdx + 1} of {project.images.length}</span>
                     <span className={styles.linkButton}>
                       <Maximize2 size={13} />
-                      Lihat Detail Proyek
+                      View Project Details
                     </span>
                   </div>
                 </div>
@@ -263,7 +263,7 @@ export default function Projects() {
                 {/* Thumbnails to Switch Image */}
                 {selectedProject.images.length > 1 && (
                   <div>
-                    <p className="text-xs text-slate-400 mb-2 font-mono">Pilih Tangkapan Layar:</p>
+                    <p className="text-xs text-slate-400 mb-2 font-mono">Select Screenshot:</p>
                     <div className={styles.modalThumbnails}>
                       {selectedProject.images.map((img, idx) => (
                         <div
@@ -288,7 +288,7 @@ export default function Projects() {
                 {/* Full Unclipped Description */}
                 <div className="mb-6">
                   <h4 className="text-sm font-semibold text-white mb-2 uppercase tracking-wider text-purple-400">
-                    Tentang Proyek:
+                    About This Project:
                   </h4>
                   <p className={styles.modalDescription}>
                     {selectedProject.description}
@@ -298,7 +298,7 @@ export default function Projects() {
                 {/* Tech Stack List */}
                 <div>
                   <h4 className="text-sm font-semibold text-white mb-2 uppercase tracking-wider text-emerald-400">
-                    Teknologi & Alat:
+                    Technologies & Tools:
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.tags.map((tag) => (

@@ -24,22 +24,22 @@ export default function Hero() {
         </p>
 
         <p className={styles.bio}>
-          Lulusan Sarjana Terapan Teknologi Rekayasa Komputer dari Politeknik Negeri Semarang dengan IPK 3.63.
-          Memiliki keahlian dalam pengembangan perangkat lunak (Full-Stack Web & Mobile Development),
-          kecerdasan buatan (Machine Learning / Deep Learning), IoT, serta arsitektur sistem.
-          Berpengalaman merancang dan mengimplementasikan aplikasi skala penuh menggunakan React.js, React Native,
-          Laravel, Flask, dan Python, serta integrasi model AI (LSTM & MobileNetV2). Memiliki pengalaman magang profesional
-          di bidang IT Support & Software Development. Siap berkontribusi secara profesional di industri teknologi.
+          Bachelor's Graduate in Applied Computer Engineering Technology from Politeknik Negeri Semarang with GPA 3.63.
+          Proficient in software development (Full-Stack Web & Mobile Development),
+          artificial intelligence (Machine Learning / Deep Learning), IoT, and system architecture.
+          Experienced in designing and implementing full-scale applications using React.js, React Native,
+          Laravel, Flask, and Python, as well as AI model integration (LSTM & MobileNetV2). Professional internship experience
+          in IT Support & Software Development. Ready to contribute professionally in the technology industry.
         </p>
 
         <div className={styles.buttonGroup}>
           <a href="#projects" className={styles.primaryButton}>
             <ArrowDown size={18} />
-            Lihat Portofolio Proyek
+            View Project Portfolio
           </a>
           <a href="#contact" className={styles.secondaryButton}>
             <Mail size={18} />
-            Hubungi Saya
+            Contact Me
           </a>
         </div>
       </div>

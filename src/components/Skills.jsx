@@ -41,10 +41,10 @@ export default function Skills() {
   return (
     <section id="skills" className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.heading}>Keahlian Teknis</h2>
+        <h2 className={styles.heading}>Technical Skills</h2>
         <div className={styles.headingAccent} />
         <p className={styles.subtitle}>
-          Penguasaan teknologi pengembangan aplikasi terpadu, integrasi AI, hingga otomasi perangkat keras berbasis IoT.
+          Mastery of integrated application development technology, AI integration, and IoT-based hardware automation.
         </p>
 
         <div className={styles.grid}>

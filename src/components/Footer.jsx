@@ -27,9 +27,9 @@ export default function Footer() {
         {/* Top Contact Info */}
         <div className={styles.topSection}>
           <div>
-            <h3 className={styles.contactTitle}>Mari Berkolaborasi</h3>
+            <h3 className={styles.contactTitle}>Let's Collaborate</h3>
             <p className={styles.contactText}>
-              Terbuka untuk kesempatan kerja full-time, freelance, maupun kolaborasi proyek AI, Web Development, dan IoT.
+              Open for full-time opportunities, freelance work, or collaboration on AI, Web Development, and IoT projects.
             </p>
           </div>
 

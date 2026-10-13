@@ -12,7 +12,7 @@ const certificationsData = [
     issuer: "Big Data Analytics",
     badge: "Big Data",
     description:
-      "Sertifikasi yang memvalidasi kompetensi dalam analitik big data, mencakup pemahaman konsep dasar, pengolahan, dan analisis kumpulan data berskala besar.",
+      "Certification that validates competencies in big data analytics, covering fundamental concepts, processing, and analysis of large-scale datasets.",
     image: "/certificates/big-data.png",
   },
   {
@@ -21,7 +21,7 @@ const certificationsData = [
     issuer: "Oracle Academy / Database Systems",
     badge: "Database",
     description:
-      "Sertifikasi yang membuktikan keahlian dalam merancang arsitektur basis data, pemodelan data relasional, dan penyusunan struktur penyimpanan data yang efisien.",
+      "Certification that demonstrates expertise in database architecture design, relational data modeling, and efficient data storage structure design.",
     image: "/certificates/database-design.png",
   },
   {
@@ -30,16 +30,16 @@ const certificationsData = [
     issuer: "Oracle Academy / SQL Mastery",
     badge: "SQL Programming",
     description:
-      "Sertifikasi yang menunjukkan penguasaan bahasa SQL (Structured Query Language) untuk mengelola, memanipulasi, dan mengekstraksi informasi dari basis data relasional.",
+      "Certification showing mastery of SQL (Structured Query Language) for managing, manipulating, and extracting information from relational databases.",
     image: "/certificates/database-programming.png",
   },
   {
     id: "toeic",
     title: "TOEIC - Listening & Reading",
-    issuer: "ETS Global (Skor: 785)",
+    issuer: "ETS Global (Score: 785)",
     badge: "Score: 785",
     description:
-      "Sertifikat kecakapan bahasa Inggris internasional dengan skor total 785, mengonfirmasi kemampuan komunikasi tingkat profesional dalam konteks listening dan reading.",
+      "International English proficiency certificate with a total score of 785, confirming professional-level communication ability in listening and reading contexts.",
     image: "/certificates/toeic.png",
   },
   {
@@ -48,7 +48,7 @@ const certificationsData = [
     issuer: "MikroTik RouterOS",
     badge: "Networking",
     description:
-      "Sertifikasi MikroTik Certified Network Associate (MTCNA) yang membuktikan keahlian dalam konfigurasi, manajemen, dan pemecahan masalah jaringan menggunakan RouterOS.",
+      "MikroTik Certified Network Associate (MTCNA) certification that demonstrates expertise in RouterOS configuration, management, and network troubleshooting.",
     image: "/certificates/mtcna.png",
   },
 ];
@@ -74,10 +74,10 @@ export default function Certifications() {
   return (
     <section id="certifications" className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.heading}>Sertifikasi & Lisensi</h2>
+        <h2 className={styles.heading}>Certifications & Licenses</h2>
         <div className={styles.headingAccent} />
         <p className={styles.subtitle}>
-          Pengakuan resmi atas kompetensi di bidang arsitektur data, rekayasa SQL, jaringan komputer, analitik big data, dan kecakapan bahasa global.
+          Official recognition of competencies in data architecture, SQL engineering, computer networking, big data analytics, and global language proficiency.
         </p>
 
         <div className={styles.grid}>
@@ -112,7 +112,7 @@ export default function Certifications() {
                 <div className={styles.cardFooter}>
                   <span className="flex items-center gap-1.5 text-emerald-400">
                     <CheckCircle2 size={13} />
-                    Terverifikasi
+                    Verified
                   </span>
                   <button
                     type="button"
@@ -120,7 +120,7 @@ export default function Certifications() {
                     className={styles.viewBtn}
                   >
                     <Maximize2 size={13} />
-                    Lihat Sertifikat
+                    View Certificate
                   </button>
                 </div>
               </div>
