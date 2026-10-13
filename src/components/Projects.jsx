@@ -84,6 +84,7 @@ export default function Projects() {
   const [activeImageIndex, setActiveImageIndex] = useState({});
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalImgIdx, setModalImgIdx] = useState(0);
+  const [isClosing, setIsClosing] = useState(false);
 
   const handlePrev = (projectId, totalImages, e) => {
     e.stopPropagation();
@@ -102,12 +103,18 @@ export default function Projects() {
   };
 
   const openProjectModal = (project, imgIndex = 0) => {
+    setIsClosing(false);
     setSelectedProject(project);
     setModalImgIdx(imgIndex);
   };
 
   const closeProjectModal = () => {
-    setSelectedProject(null);
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      setSelectedProject(null);
+      setIsClosing(false);
+    }, 200);
   };
 
   return (
@@ -216,8 +223,14 @@ export default function Projects() {
 
       {/* Full Project Detail & Image Preview Modal */}
       {selectedProject && (
-        <div className={styles.modalOverlay} onClick={closeProjectModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div
+          className={isClosing ? styles.modalOverlayExit : styles.modalOverlay}
+          onClick={closeProjectModal}
+        >
+          <div
+            className={isClosing ? styles.modalContentExit : styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               type="button"
               className={styles.modalClose}

@@ -88,7 +88,9 @@ export const projectsStyles = {
 
   // Modal for Project Details & Images
   modalOverlay: "fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-anim",
+  modalOverlayExit: "fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-exit",
   modalContent: "relative max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] modal-content-anim",
+  modalContentExit: "relative max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] modal-content-exit",
   modalClose: "absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-950/80 text-white flex items-center justify-center hover:bg-slate-800 transition-colors border border-slate-700",
   modalScrollArea: "overflow-y-auto w-full",
   modalImageWrapper: "relative w-full h-[45vh] min-h-[260px] max-h-[460px] bg-slate-950 flex items-center justify-center p-3 border-b border-slate-800",
@@ -132,7 +134,9 @@ export const certStyles = {
 
   // Modal
   modalOverlay: "fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-anim",
+  modalOverlayExit: "fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-exit",
   modalContent: "relative max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl modal-content-anim",
+  modalContentExit: "relative max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl modal-content-exit",
   modalClose: "absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-950/80 text-white flex items-center justify-center hover:bg-slate-800 transition-colors border border-slate-700",
   modalImageWrapper: "relative w-full h-[65vh] max-h-[650px] bg-slate-950 flex items-center justify-center p-4",
   modalImage: "max-h-full max-w-full object-contain rounded-lg",

@@ -55,6 +55,21 @@ const certificationsData = [
 
 export default function Certifications() {
   const [modalCert, setModalCert] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleOpenCert = (cert) => {
+    setIsClosing(false);
+    setModalCert(cert);
+  };
+
+  const handleCloseCert = () => {
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      setModalCert(null);
+      setIsClosing(false);
+    }, 200);
+  };
 
   return (
     <section id="certifications" className={styles.section}>
@@ -71,7 +86,7 @@ export default function Certifications() {
               {/* Certificate Image Preview */}
               <div
                 className={styles.imageContainer}
-                onClick={() => setModalCert(cert)}
+                onClick={() => handleOpenCert(cert)}
                 title="Klik untuk memperbesar sertifikat"
               >
                 <span className={styles.badge}>{cert.badge}</span>
@@ -101,7 +116,7 @@ export default function Certifications() {
                   </span>
                   <button
                     type="button"
-                    onClick={() => setModalCert(cert)}
+                    onClick={() => handleOpenCert(cert)}
                     className={styles.viewBtn}
                   >
                     <Maximize2 size={13} />
@@ -117,17 +132,17 @@ export default function Certifications() {
       {/* Modal Full Image Preview */}
       {modalCert && (
         <div
-          className={styles.modalOverlay}
-          onClick={() => setModalCert(null)}
+          className={isClosing ? styles.modalOverlayExit : styles.modalOverlay}
+          onClick={handleCloseCert}
         >
           <div
-            className={styles.modalContent}
+            className={isClosing ? styles.modalContentExit : styles.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               className={styles.modalClose}
-              onClick={() => setModalCert(null)}
+              onClick={handleCloseCert}
               aria-label="Tutup preview"
             >
               <X size={20} />
