@@ -62,7 +62,7 @@ export default function Hero() {
             </motion.div>
 
             {/* Stats Row */}
-            <motion.div {...fadeUp(0.4)} className={styles.statsRow}>
+            {/* <motion.div {...fadeUp(0.4)} className={styles.statsRow}>
               {stats.map((stat) => (
                 <div key={stat.label} className={styles.statItem}>
                   <span className={styles.statNumber}>
@@ -74,7 +74,7 @@ export default function Hero() {
                   <span className={styles.statLabel}>{stat.label}</span>
                 </div>
               ))}
-            </motion.div>
+            </motion.div> */}
           </div>
 
           {/* ── Right Column ── */}
