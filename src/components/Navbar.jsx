@@ -9,7 +9,6 @@ const navLinks = [
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Certifications", href: "#certifications" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -25,7 +24,7 @@ export default function Navbar() {
         <div className={styles.inner}>
           {/* Logo */}
           <a href="#home" className={styles.logo}>
-            {"<Akasha />"}
+            &lt;<span className={styles.logoAccent}>Akasha</span> /&gt;
           </a>
 
           {/* Desktop Menu */}
@@ -35,6 +34,9 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <a href="#contact" className={styles.ctaLink}>
+              Contact
+            </a>
           </div>
 
           {/* Mobile Toggle */}
@@ -62,6 +64,9 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <a href="#contact" className={styles.mobileLink} onClick={handleLinkClick}>
+              Contact
+            </a>
           </div>
         </div>
       )}

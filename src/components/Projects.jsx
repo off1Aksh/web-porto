@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Maximize2, X, ExternalLink } from "lucide-react";
+import { motion } from "motion/react";
+import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { projectsStyles as styles } from "@/styles/themeStyles";
 
 const projectsData = [
@@ -80,27 +81,90 @@ const projectsData = [
   },
 ];
 
+function ProjectCard({ project, index, onOpen }) {
+  const [activeImgIdx, setActiveImgIdx] = useState(0);
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setActiveImgIdx((prev) => (prev - 1 + project.images.length) % project.images.length);
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setActiveImgIdx((prev) => (prev + 1) % project.images.length);
+  };
+
+  const currentImg = project.images[activeImgIdx];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.6, delay: (index % 3) * 0.1, ease: [0.34, 1.56, 0.64, 1] }}
+      whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] } }}
+      style={{ transform: "translateZ(0)" }}
+      className={styles.card}
+      onClick={() => onOpen(project, activeImgIdx)}
+      title="Click to view project details"
+    >
+      {/* Image Section */}
+      <div className={styles.imageContainer}>
+        <span className={styles.categoryBadge}>{project.category}</span>
+        <div className={styles.imageWrapper}>
+          <Image
+            src={currentImg.src}
+            alt={currentImg.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className={styles.image}
+            priority={project.id === "intern-ticketing"}
+          />
+        </div>
+        {project.images.length > 1 && (
+          <>
+            <button type="button" onClick={handlePrev} className={styles.carouselBtnPrev} aria-label="Previous image">
+              <ChevronLeft size={18} />
+            </button>
+            <button type="button" onClick={handleNext} className={styles.carouselBtnNext} aria-label="Next image">
+              <ChevronRight size={18} />
+            </button>
+            <div className={styles.dotsContainer}>
+              {project.images.map((_, idx) => (
+                <span key={idx} className={idx === activeImgIdx ? styles.dotActive : styles.dotInactive} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Card Body */}
+      <div className={styles.cardBody}>
+        <div className={styles.cardTop}>
+          <h3 className={styles.cardTitle}>{project.title}</h3>
+          <p className={styles.cardDescription}>{project.description}</p>
+          <div className={styles.tagContainer}>
+            {project.tags.map((tag) => (
+              <span key={tag} className={styles.tag}>{tag}</span>
+            ))}
+          </div>
+        </div>
+        <div className={styles.cardFooter}>
+          <span>Slide {activeImgIdx + 1} of {project.images.length}</span>
+          <span className={styles.linkButton}>
+            <Maximize2 size={13} />
+            View Details
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Projects() {
-  const [activeImageIndex, setActiveImageIndex] = useState({});
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalImgIdx, setModalImgIdx] = useState(0);
   const [isClosing, setIsClosing] = useState(false);
-
-  const handlePrev = (projectId, totalImages, e) => {
-    e.stopPropagation();
-    setActiveImageIndex((prev) => {
-      const current = prev[projectId] || 0;
-      return { ...prev, [projectId]: (current - 1 + totalImages) % totalImages };
-    });
-  };
-
-  const handleNext = (projectId, totalImages, e) => {
-    e.stopPropagation();
-    setActiveImageIndex((prev) => {
-      const current = prev[projectId] || 0;
-      return { ...prev, [projectId]: (current + 1) % totalImages };
-    });
-  };
 
   const openProjectModal = (project, imgIndex = 0) => {
     setIsClosing(false);
@@ -120,108 +184,35 @@ export default function Projects() {
   return (
     <section id="projects" className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.heading}>Projects Portfolio</h2>
-        <div className={styles.headingAccent} />
-        <p className={styles.subtitle}>
-          Collection of real projects covering enterprise web development, artificial intelligence (AI), and integrated IoT hardware prototypes.
-        </p>
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className={styles.sectionLabel}>What I&apos;ve Built</p>
+          <h2 className={styles.heading}>Projects Portfolio</h2>
+          <div className={styles.headingAccent} />
+          <p className={styles.subtitle}>
+            Collection of real projects covering enterprise web development, artificial intelligence (AI), and integrated IoT hardware prototypes.
+          </p>
+        </motion.div>
 
+        {/* Bento Grid */}
         <div className={styles.grid}>
-          {projectsData.map((project) => {
-            const currentImgIdx = activeImageIndex[project.id] || 0;
-            const currentImg = project.images[currentImgIdx];
-
-            return (
-              <div
-                key={project.id}
-                className={styles.card}
-                onClick={() => openProjectModal(project, currentImgIdx)}
-                title="Klik untuk melihat detail & foto proyek"
-              >
-                {/* Image Section with Carousel & Zoom */}
-                <div className={styles.imageContainer}>
-                  <span className={styles.categoryBadge}>{project.category}</span>
-
-                  <div className={styles.imageWrapper}>
-                    <Image
-                      src={currentImg.src}
-                      alt={currentImg.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className={styles.image}
-                      priority={project.id === "intern-ticketing"}
-                    />
-                  </div>
-
-                  {/* Carousel Controls */}
-                  {project.images.length > 1 && (
-                    <>
-                      <button
-                        type="button"
-                        onClick={(e) => handlePrev(project.id, project.images.length, e)}
-                        className={styles.carouselBtnPrev}
-                        aria-label="Gambar sebelumnya"
-                      >
-                        <ChevronLeft size={18} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={(e) => handleNext(project.id, project.images.length, e)}
-                        className={styles.carouselBtnNext}
-                        aria-label="Gambar berikutnya"
-                      >
-                        <ChevronRight size={18} />
-                      </button>
-
-                      {/* Dots Indicator */}
-                      <div className={styles.dotsContainer}>
-                        {project.images.map((_, idx) => (
-                          <span
-                            key={idx}
-                            className={idx === currentImgIdx ? styles.dotActive : styles.dotInactive}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-
-                {/* Card Body */}
-                <div className={styles.cardBody}>
-                  <div className={styles.cardTop}>
-                    <h3 className={styles.cardTitle}>{project.title}</h3>
-
-                    {/* Fixed 3-line clamp description - Card will never stretch */}
-                    <p className={styles.cardDescription}>
-                      {project.description}
-                    </p>
-
-                    {/* Tech Stack Tags */}
-                    <div className={styles.tagContainer}>
-                      {project.tags.map((tag) => (
-                        <span key={tag} className={styles.tag}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Footer Action */}
-                  <div className={styles.cardFooter}>
-                    <span>Slide {currentImgIdx + 1} of {project.images.length}</span>
-                    <span className={styles.linkButton}>
-                      <Maximize2 size={13} />
-                      View Project Details
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {projectsData.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onOpen={openProjectModal}
+            />
+          ))}
         </div>
       </div>
 
-      {/* Full Project Detail & Image Preview Modal */}
+      {/* Project Detail Modal */}
       {selectedProject && (
         <div
           className={isClosing ? styles.modalOverlayExit : styles.modalOverlay}
@@ -235,13 +226,13 @@ export default function Projects() {
               type="button"
               className={styles.modalClose}
               onClick={closeProjectModal}
-              aria-label="Tutup detail proyek"
+              aria-label="Close project detail"
             >
               <X size={20} />
             </button>
 
             <div className={styles.modalScrollArea}>
-              {/* Image Preview Container with Switcher */}
+              {/* Main Image */}
               <div className={styles.modalImageWrapper}>
                 <Image
                   src={selectedProject.images[modalImgIdx]?.src || selectedProject.images[0].src}
@@ -252,59 +243,43 @@ export default function Projects() {
                 />
               </div>
 
-              {/* Modal Content Details */}
+              {/* Modal Body */}
               <div className={styles.modalBody}>
                 <div className={styles.modalHeader}>
                   <span className={styles.modalCategory}>{selectedProject.category}</span>
                 </div>
-
                 <h3 className={styles.modalTitle}>{selectedProject.title}</h3>
 
-                {/* Thumbnails to Switch Image */}
+                {/* Thumbnail Switcher */}
                 {selectedProject.images.length > 1 && (
                   <div>
-                    <p className="text-xs text-slate-400 mb-2 font-mono">Select Screenshot:</p>
+                    <p className={styles.modalSectionLabel}>Select Screenshot:</p>
                     <div className={styles.modalThumbnails}>
                       {selectedProject.images.map((img, idx) => (
                         <div
                           key={idx}
                           onClick={() => setModalImgIdx(idx)}
-                          className={`${styles.modalThumbItem} ${idx === modalImgIdx ? styles.modalThumbActive : styles.modalThumbInactive
-                            }`}
+                          className={`${styles.modalThumbItem} ${idx === modalImgIdx ? styles.modalThumbActive : styles.modalThumbInactive}`}
                         >
-                          <Image
-                            src={img.src}
-                            alt={img.alt}
-                            fill
-                            sizes="80px"
-                            className="object-cover"
-                          />
+                          <Image src={img.src} alt={img.alt} fill sizes="80px" className="object-cover" />
                         </div>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {/* Full Unclipped Description */}
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-white mb-2 uppercase tracking-wider text-purple-400">
-                    About This Project:
-                  </h4>
-                  <p className={styles.modalDescription}>
-                    {selectedProject.description}
-                  </p>
+                {/* Description */}
+                <div>
+                  <p className={styles.modalAboutLabel}>About This Project:</p>
+                  <p className={styles.modalDescription}>{selectedProject.description}</p>
                 </div>
 
-                {/* Tech Stack List */}
+                {/* Tech Stack */}
                 <div>
-                  <h4 className="text-sm font-semibold text-white mb-2 uppercase tracking-wider text-emerald-400">
-                    Technologies & Tools:
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
+                  <p className={styles.modalTechLabel}>Technologies &amp; Tools:</p>
+                  <div className={styles.tagContainer}>
                     {selectedProject.tags.map((tag) => (
-                      <span key={tag} className={styles.tag}>
-                        {tag}
-                      </span>
+                      <span key={tag} className={styles.tag}>{tag}</span>
                     ))}
                   </div>
                 </div>

@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Award, Maximize2, X, CheckCircle2 } from "lucide-react";
+import { motion } from "motion/react";
+import { Maximize2, X, CheckCircle2 } from "lucide-react";
 import { certStyles as styles } from "@/styles/themeStyles";
 
 const certificationsData = [
@@ -53,6 +54,61 @@ const certificationsData = [
   },
 ];
 
+function CertCard({ cert, index, onOpen }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.6, delay: (index % 3) * 0.1, ease: [0.34, 1.56, 0.64, 1] }}
+      whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] } }}
+      style={{ transform: "translateZ(0)" }}
+      className={styles.card}
+    >
+      {/* Certificate Image Preview */}
+      <div
+        className={styles.imageContainer}
+        onClick={() => onOpen(cert)}
+        title="Click to enlarge certificate"
+      >
+        <span className={styles.badge}>{cert.badge}</span>
+        <div className={styles.imageWrapper}>
+          <Image
+            src={cert.image}
+            alt={cert.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className={styles.image}
+          />
+        </div>
+      </div>
+
+      {/* Card Body */}
+      <div className={styles.cardBody}>
+        <div>
+          <p className={styles.issuer}>{cert.issuer}</p>
+          <h3 className={styles.title}>{cert.title}</h3>
+          <p className={styles.description}>{cert.description}</p>
+        </div>
+        <div className={styles.cardFooter}>
+          <span className={styles.verifiedBadge}>
+            <CheckCircle2 size={13} />
+            Verified
+          </span>
+          <button
+            type="button"
+            onClick={() => onOpen(cert)}
+            className={styles.viewBtn}
+          >
+            <Maximize2 size={13} />
+            View Certificate
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Certifications() {
   const [modalCert, setModalCert] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
@@ -74,57 +130,25 @@ export default function Certifications() {
   return (
     <section id="certifications" className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.heading}>Certifications & Licenses</h2>
-        <div className={styles.headingAccent} />
-        <p className={styles.subtitle}>
-          Official recognition of competencies in data architecture, SQL engineering, computer networking, big data analytics, and global language proficiency.
-        </p>
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className={styles.sectionLabel}>Credentials</p>
+          <h2 className={styles.heading}>Certifications &amp; Licenses</h2>
+          <div className={styles.headingAccent} />
+          <p className={styles.subtitle}>
+            Official recognition of competencies in data architecture, SQL engineering, computer networking, big data analytics, and global language proficiency.
+          </p>
+        </motion.div>
 
+        {/* Grid */}
         <div className={styles.grid}>
-          {certificationsData.map((cert) => (
-            <div key={cert.id} className={styles.card}>
-              {/* Certificate Image Preview */}
-              <div
-                className={styles.imageContainer}
-                onClick={() => handleOpenCert(cert)}
-                title="Klik untuk memperbesar sertifikat"
-              >
-                <span className={styles.badge}>{cert.badge}</span>
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={cert.image}
-                    alt={cert.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className={styles.image}
-                  />
-                </div>
-              </div>
-
-              {/* Card Body */}
-              <div className={styles.cardBody}>
-                <div>
-                  <p className={styles.issuer}>{cert.issuer}</p>
-                  <h3 className={styles.title}>{cert.title}</h3>
-                  <p className={styles.description}>{cert.description}</p>
-                </div>
-
-                <div className={styles.cardFooter}>
-                  <span className="flex items-center gap-1.5 text-emerald-400">
-                    <CheckCircle2 size={13} />
-                    Verified
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => handleOpenCert(cert)}
-                    className={styles.viewBtn}
-                  >
-                    <Maximize2 size={13} />
-                    View Certificate
-                  </button>
-                </div>
-              </div>
-            </div>
+          {certificationsData.map((cert, index) => (
+            <CertCard key={cert.id} cert={cert} index={index} onOpen={handleOpenCert} />
           ))}
         </div>
       </div>
@@ -143,7 +167,7 @@ export default function Certifications() {
               type="button"
               className={styles.modalClose}
               onClick={handleCloseCert}
-              aria-label="Tutup preview"
+              aria-label="Close preview"
             >
               <X size={20} />
             </button>
@@ -157,8 +181,8 @@ export default function Certifications() {
               />
             </div>
             <div className={styles.modalCaption}>
-              <h4 className="font-semibold text-white text-base">{modalCert.title}</h4>
-              <p className="text-xs text-slate-400 mt-1">{modalCert.issuer}</p>
+              <h4 className={styles.modalCaptionTitle}>{modalCert.title}</h4>
+              <p className={styles.modalCaptionIssuer}>{modalCert.issuer}</p>
             </div>
           </div>
         </div>

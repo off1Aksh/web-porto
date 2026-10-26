@@ -27,7 +27,8 @@ export default function Footer() {
         {/* Top Contact Info */}
         <div className={styles.topSection}>
           <div>
-            <h3 className={styles.contactTitle}>Let's Collaborate</h3>
+            <p className={styles.sectionLabel}>Get In Touch</p>
+            <h3 className={styles.contactTitle}>Let&apos;s Collaborate</h3>
             <p className={styles.contactText}>
               Open for full-time opportunities, freelance work, or collaboration on AI, Web Development, and IoT projects.
             </p>
@@ -35,19 +36,19 @@ export default function Footer() {
 
           <div className={styles.contactList}>
             <div className={styles.contactItem}>
-              <Mail size={16} className="text-emerald-400 shrink-0" />
+              <Mail size={16} className="text-orange-500 shrink-0" />
               <a href="mailto:akashabnali@gmail.com" className={styles.contactLink}>
                 akashabnali@gmail.com
               </a>
             </div>
             <div className={styles.contactItem}>
-              <Phone size={16} className="text-purple-400 shrink-0" />
+              <Phone size={16} className="text-orange-500 shrink-0" />
               <a href="tel:085956399344" className={styles.contactLink}>
                 0859 5639 9344
               </a>
             </div>
             <div className={styles.contactItem}>
-              <MapPin size={16} className="text-rose-400 shrink-0" />
+              <MapPin size={16} className="text-orange-500 shrink-0" />
               <span>Salatiga, Jawa Tengah, Indonesia</span>
             </div>
           </div>
