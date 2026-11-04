@@ -10,6 +10,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Lock body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
 /* Prevent sub-pixel jitter, font blinking and GPU composite layer drops */
 body {
   -webkit-font-smoothing: antialiased;
@@ -100,6 +105,40 @@ body {
 
 .modal-content-exit {
   animation: modalScaleOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+/* Star feature expand panel animation */
+@keyframes featExpand {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scaleY(0.95);
+    transform-origin: top;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    transform-origin: top;
+  }
+}
+
+.modal-feat-expand {
+  animation: featExpand 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Modal tab content fade-slide transition */
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-tab-content {
+  animation: tabFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 

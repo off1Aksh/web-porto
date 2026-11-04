@@ -114,8 +114,14 @@ export const projectsStyles = {
   cardBody: "p-5 flex flex-col flex-grow justify-between",
   cardTop: "mb-4",
   cardTitle: "text-white font-semibold text-lg mb-2 group-hover:text-orange-300 transition-colors leading-snug",
-  cardDescription: "text-zinc-500 text-sm leading-relaxed mb-4 line-clamp-3",
-  expandBtn: "text-xs text-orange-400 hover:text-orange-300 font-medium mb-4 inline-block transition-colors cursor-pointer",
+  cardDescription: "text-zinc-500 text-sm leading-relaxed mb-3 line-clamp-2",
+
+  // Card Star Features Preview
+  cardFeaturesList: "space-y-1.5 mb-4 py-2.5 px-3 rounded-xl bg-zinc-950/60 border border-white/5",
+  cardFeatureItem: "flex items-center gap-2 text-xs text-zinc-300",
+  cardFeatureIcon: "text-orange-400 shrink-0 fill-orange-400/20",
+  cardFeatureText: "line-clamp-1 text-zinc-400 text-xs",
+  cardFeatureTitle: "text-zinc-200 font-semibold mr-1",
 
   // Tech tags
   tagContainer: "flex flex-wrap gap-1.5 mb-5",
@@ -125,27 +131,79 @@ export const projectsStyles = {
   cardFooter: "pt-4 border-t border-white/5 flex items-center justify-between text-xs text-zinc-600 font-mono",
   linkButton: "text-xs text-orange-400 hover:text-orange-300 flex items-center gap-1.5 transition-colors font-medium cursor-pointer",
 
-  // Modal for Project Details & Images
+  // ── Modal Shell ──────────────────────────────────────────────
   modalOverlay: "fixed inset-0 z-50 bg-zinc-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-anim",
   modalOverlayExit: "fixed inset-0 z-50 bg-zinc-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-exit",
-  modalContent: "relative max-w-4xl w-full bg-zinc-900 border border-white/8 rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] modal-content-anim",
-  modalContentExit: "relative max-w-4xl w-full bg-zinc-900 border border-white/8 rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] modal-content-exit",
-  modalClose: "absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-zinc-950/80 text-white flex items-center justify-center hover:bg-zinc-800 transition-colors border border-white/10",
-  modalScrollArea: "overflow-y-auto w-full",
-  modalImageWrapper: "relative w-full h-[45vh] min-h-[260px] max-h-[460px] bg-zinc-950 flex items-center justify-center p-3 border-b border-white/5",
+  modalContent: "relative max-w-4xl w-full bg-zinc-900 border border-white/8 rounded-2xl shadow-2xl flex flex-col max-h-[90vh] modal-content-anim overflow-hidden",
+  modalContentExit: "relative max-w-4xl w-full bg-zinc-900 border border-white/8 rounded-2xl shadow-2xl flex flex-col max-h-[90vh] modal-content-exit overflow-hidden",
+  modalClose: "absolute top-4 right-4 z-30 w-9 h-9 rounded-full bg-zinc-950/80 text-white flex items-center justify-center hover:bg-zinc-800 hover:text-orange-400 transition-all duration-200 border border-white/10 backdrop-blur-md",
+
+  // ── Modal Scroll Area (isolates scroll from page) ────────────
+  modalScrollArea: "overflow-y-auto overscroll-contain flex-1 min-h-0",
+
+  // ── Modal Image ───────────────────────────────────────────────
+  modalImageWrapper: "relative w-full h-[40vh] min-h-[240px] max-h-[420px] bg-zinc-950 flex items-center justify-center p-3 border-b border-white/5 shrink-0",
   modalImage: "max-h-full max-w-full object-contain rounded-lg",
+
+  // ── Modal Body ────────────────────────────────────────────────
   modalBody: "p-6 sm:p-8 bg-zinc-900",
-  modalHeader: "flex flex-wrap items-center gap-3 mb-3",
+  modalHeader: "flex flex-wrap items-center gap-3 mb-2",
   modalCategory: "px-3 py-1 text-xs font-semibold rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20",
-  modalTitle: "text-2xl sm:text-3xl font-bold text-white mb-4 leading-tight",
-  modalDescription: "text-zinc-300 text-sm sm:text-base leading-relaxed mb-6 whitespace-pre-line",
-  modalThumbnails: "flex items-center gap-3 mb-6 overflow-x-auto pb-2",
-  modalThumbItem: "relative w-20 h-14 rounded-lg overflow-hidden border-2 cursor-pointer transition-all shrink-0",
-  modalThumbActive: "border-orange-500 opacity-100",
-  modalThumbInactive: "border-white/10 opacity-60 hover:opacity-100",
+  modalTitle: "text-2xl sm:text-3xl font-bold text-white mb-5 leading-tight",
+
+  // Thumbnail Switcher
   modalSectionLabel: "text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider font-mono",
-  modalAboutLabel: "text-xs font-semibold text-orange-400 mb-2 uppercase tracking-wider font-mono",
-  modalTechLabel: "text-xs font-semibold text-orange-400 mb-2 uppercase tracking-wider font-mono",
+  modalThumbnails: "flex items-center gap-3 mb-6 overflow-x-auto pb-2",
+  modalThumbItem: "relative w-20 h-14 rounded-lg overflow-hidden border-2 cursor-pointer transition-all duration-200 shrink-0",
+  modalThumbActive: "border-orange-500 opacity-100 scale-105",
+  modalThumbInactive: "border-white/10 opacity-55 hover:opacity-85 hover:border-white/25",
+  modalThumbImg: "object-cover",
+
+  // ── Tabs Navigation ───────────────────────────────────────────
+  modalTabsContainer: "flex items-center gap-1.5 mb-6 border-b border-white/5 pb-0 overflow-x-auto",
+  modalTabBtn: "px-4 py-2 text-xs font-mono font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap border-b-2 -mb-px",
+  modalTabActive: "text-orange-400 border-orange-500 bg-transparent",
+  modalTabInactive: "text-zinc-500 border-transparent hover:text-zinc-300 hover:border-zinc-600",
+
+  // ── Overview Tab ──────────────────────────────────────────────
+  overviewSection: "mb-0",
+  overviewText: "text-zinc-300 text-sm sm:text-base leading-relaxed whitespace-pre-line",
+  modalTechLabel: "text-xs font-semibold text-orange-400 mb-3 uppercase tracking-wider font-mono flex items-center gap-2",
+
+  // ── Star Features Tab ─────────────────────────────────────────
+  starFeaturesGrid: "grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6",
+  // Clickable feature button card
+  starFeatureBtn: "w-full text-left p-4 rounded-xl border transition-all duration-250 cursor-pointer flex items-start gap-3.5 group/feat",
+  starFeatureBtnDefault: "bg-zinc-950/60 border-white/6 hover:border-orange-500/30 hover:bg-zinc-950/90",
+  starFeatureBtnActive: "bg-orange-500/8 border-orange-500/50 shadow-lg shadow-orange-500/5",
+  starFeatureIconWrapper: "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition-colors duration-200",
+  starFeatureIconDefault: "bg-orange-500/10 border border-orange-500/20 text-orange-400 group-hover/feat:bg-orange-500/20",
+  starFeatureIconActive: "bg-orange-500/25 border border-orange-500/40 text-orange-300",
+  starFeatureContent: "flex flex-col flex-1 min-w-0",
+  starFeatureTitle: "text-sm font-semibold mb-0.5 transition-colors duration-200",
+  starFeatureTitleDefault: "text-white group-hover/feat:text-orange-300",
+  starFeatureTitleActive: "text-orange-300",
+  starFeatureTeaser: "text-xs text-zinc-500 font-mono",
+  // Expanded detail panel
+  starFeatureDetail: "mt-3 rounded-xl bg-zinc-900 border border-orange-500/15 overflow-hidden modal-feat-expand",
+  starFeatureDetailInner: "p-4 sm:p-5",
+  starFeatureDetailText: "text-sm text-zinc-300 leading-relaxed",
+  starFeatureDetailStack: "mt-3 flex flex-wrap gap-1.5",
+
+  // ── S.T.A.R. Tab ──────────────────────────────────────────────
+  starMethodSection: "mb-0 space-y-3",
+  starMethodCard: "rounded-xl border border-white/5 overflow-hidden transition-all duration-200 hover:border-white/10",
+  starMethodHeader: "flex items-center gap-3 p-4",
+  starMethodBadge: "w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold font-mono shrink-0",
+  starMethodBadgeSituation: "bg-blue-500/15 text-blue-400 border border-blue-500/30",
+  starMethodBadgeTask: "bg-amber-500/15 text-amber-400 border border-amber-500/30",
+  starMethodBadgeAction: "bg-orange-500/15 text-orange-400 border border-orange-500/30",
+  starMethodBadgeResult: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30",
+  starMethodHeaderText: "flex flex-col",
+  starMethodLabel: "text-xs font-mono text-zinc-500 uppercase tracking-widest leading-none mb-0.5",
+  starMethodTitle: "text-sm font-semibold text-white",
+  starMethodBody: "px-4 pb-4",
+  starMethodText: "text-xs sm:text-sm text-zinc-300 leading-relaxed",
 };
 
 // --- Certifications ---
