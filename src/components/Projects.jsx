@@ -655,13 +655,24 @@ function ScreenshotSwitcher({ images, activeIdx, onSelect }) {
               style={{ width: 112, height: 72 }}
               aria-label={img.alt}
             >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="112px"
-                className="object-cover"
-              />
+              {img.type === "video" ? (
+                <div className="w-full h-full bg-zinc-950 flex flex-col items-center justify-center relative">
+                  <video src={img.src} className="absolute inset-0 w-full h-full object-cover opacity-60" muted />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full bg-orange-500/90 text-white flex items-center justify-center shadow-md">
+                      <span className="text-[10px] font-bold ml-0.5">▶</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes="112px"
+                  className="object-cover"
+                />
+              )}
               {isActive && (
                 <span className="absolute inset-0 bg-orange-500/10 rounded-xl pointer-events-none" />
               )}
