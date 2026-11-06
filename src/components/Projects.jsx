@@ -67,8 +67,56 @@ const projectsData = [
     },
     tags: ["React.js", "Laravel 12", "JWT / OAuth", "N8N Automation", "DeepSeek AI", "QR Code", "PostgreSQL"],
     images: [
-      { src: "/projects/INTERN 1.png", alt: "IT Support Ticket & Inventory Admin Dashboard" },
-      { src: "/projects/INTERN 2.png", alt: "User Ticket Request Portal" },
+      { src: "/projects/INTERN 1.png", alt: "Real-Time Analytics Dashboard" },
+      { src: "/projects/INTERN 2.png", alt: "Ticket Queue Management Interface" },
+      { src: "/projects/INTERN 3.png", alt: "Detailed Ticket Information Modal" },
+      { src: "/projects/INTERN 4.png", alt: "Ticket Execution & Asset Assignment Modal" },
+      { src: "/projects/INTERN 5.png", alt: "Comprehensive Ticket Reporting Module" },
+      { src: "/projects/INTERN 6.png", alt: "Per-Technician Performance Report" },
+      { src: "/projects/INTERN 7.png", alt: "Asset Inventory & QR Management Interface" },
+      { src: "/projects/INTERN 8.png", alt: "Inventory Movement & Audit Log Report" },
+    ],
+    screenshotSpotlights: [
+      {
+        title: "Real-Time Analytics Dashboard",
+        what: "Displays live ticket metrics through dynamic chart components: ticket trend line graphs, status distribution pie charts, technician performance bar charts, geographic traffic heatmaps, and an integrated calendar view for scheduled maintenance tracking.",
+        how: "Built with React.js chart library consuming Laravel REST API aggregation endpoints. Data is polled via Axios HTTP client, processing PostgreSQL aggregate queries that calculate ticket volume, resolution rates, and technician workload distribution in real time."
+      },
+      {
+        title: "Ticket Queue Management Interface",
+        what: "Lists all incoming support tickets in a sortable table. Tickets flagged as urgent by the AI triage system are automatically prioritized to the top with distinct red background styling and a severity badge indicator.",
+        how: "Implements server-side pagination and filtering through Laravel Eloquent queries. Urgent classification is determined by the DeepSeek AI severity score stored in the tickets.priority_level column, with CSS conditional rendering applied via React className logic based on priority threshold."
+      },
+      {
+        title: "Detailed Ticket Information Modal",
+        what: "Opens when a ticket row is clicked, presenting comprehensive ticket metadata: reporter identity, issue description, timestamps, resolution notes, and a log of hardware assets deployed during troubleshooting.",
+        how: "Modal state managed through React useState hook. Data fetched asynchronously from Laravel API endpoint /api/tickets/{id}, returning a JSON payload with joined relations to users, assets, and activity_logs tables via Eloquent eager loading to minimize query overhead."
+      },
+      {
+        title: "Ticket Execution & Asset Assignment Modal",
+        what: "Triggered when a technician initiates work on a ticket. Auto-populates the assigned technician field from the authenticated session, allows reassignment if needed, and enables selection of hardware assets required for the job. Assets can be selected via dropdown search or QR code scanner.",
+        how: "Authenticated user data retrieved from Laravel Sanctum session. Asset dropdown populated from PostgreSQL inventory table filtered by status = 'Available'. QR scanner built with HTML5 getUserMedia API, decoding QR payload into asset UUID and triggering an auto-fill via React ref callback."
+      },
+      {
+        title: "Comprehensive Ticket Reporting Module",
+        what: "Aggregates all ticket records across status categories: pending, in progress, resolved, and closed. Offers multi-dimensional filtering by date range, technician, priority level, and issue category. Exports filtered data to Excel (.xlsx) or PDF for management reporting.",
+        how: "Filter state managed via React useReducer for complex query logic. Export triggered via Laravel controller methods using PhpSpreadsheet library for Excel generation and TCPDF for PDF rendering, streaming file responses with appropriate MIME headers."
+      },
+      {
+        title: "Per-Technician Performance Report",
+        what: "Isolates ticket activity for a selected technician, displaying only tickets assigned to or resolved by that individual. Includes KPI metrics such as total tickets handled, average resolution time, and completion rate. Data exportable to Excel and PDF.",
+        how: "Technician selection drives a filtered Eloquent query with WHERE technician_id = ? clause. Metrics calculated via PostgreSQL aggregate functions (COUNT, AVG) on timestamps stored in ticket lifecycle events. Export pipeline identical to the all-tickets report."
+      },
+      {
+        title: "Asset Inventory & QR Management Interface",
+        what: "Displays the complete hardware asset registry, categorized by operational status: Available, On Loan, Under Repair, Damaged, Missing. Technicians can scan an asset's QR code to instantly pull up its record, view full device history, and update its status with contextual metadata such as borrower identity or repair notes.",
+        how: "Asset records stored in PostgreSQL with indexed status column for fast filtering. QR scanner decodes the asset UUID embedded in the QR payload, triggering a GET request to /api/assets/{uuid}. Status updates POST to the API, creating an audit_log entry with foreign key to the technician and timestamped state transition."
+      },
+      {
+        title: "Inventory Movement & Audit Log Report",
+        what: "Tracks every asset status change recorded in the system: loans, returns, repairs, damage reports, and losses. Pre-filtered tabs organize entries by status category for streamlined reporting. Full audit trail exportable to Excel and PDF.",
+        how: "Audit log implemented as a PostgreSQL audit_logs table with foreign keys to assets and users. Each status transition writes an immutable log entry. React interface fetches paginated logs via Laravel API, with tabs driving status-filtered queries. Export logic reuses the PhpSpreadsheet and TCPDF pipeline."
+      }
     ],
   },
   {
@@ -531,11 +579,51 @@ const STAR_STEPS = [
   { key: "result",    letter: "R", badgeClass: "starMethodBadgeResult",    label: "Result",    subtitle: "Impact & Metrics",             Icon: Trophy,  iconClass: "text-emerald-400" },
 ];
 
-const TABS = [
-  { id: "overview",  label: "Overview",        Icon: Layers },
-  { id: "features",  label: "Star Features",   Icon: Star },
-  { id: "star",      label: "S.T.A.R. Case",   Icon: Target },
-];
+// ─── Screenshot Spotlight Card ────────────────────────────────────────────────
+
+function SpotlightCard({ spotlight, screenshotIndex, totalScreenshots }) {
+  if (!spotlight) return null;
+
+  return (
+    <div className="mb-6 rounded-2xl border border-orange-500/30 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent p-5 backdrop-blur-sm">
+      <div className="flex items-start gap-3 mb-3">
+        <div className="shrink-0 w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/30 flex items-center justify-center">
+          <Zap size={16} className="text-orange-400" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-0.5">
+            Documentation Spotlight — {screenshotIndex + 1}/{totalScreenshots}
+          </p>
+          <h4 className="text-sm font-semibold text-white leading-snug">
+            {spotlight.title}
+          </h4>
+        </div>
+      </div>
+
+      <div className="space-y-3 text-[13px] leading-relaxed">
+        <div>
+          <p className="text-orange-400/90 font-medium mb-1 flex items-center gap-1.5">
+            <Brain size={12} className="shrink-0" />
+            What it shows:
+          </p>
+          <p className="text-zinc-300/90 pl-5">
+            {spotlight.what}
+          </p>
+        </div>
+
+        <div>
+          <p className="text-blue-400/90 font-medium mb-1 flex items-center gap-1.5">
+            <Cpu size={12} className="shrink-0" />
+            How it works:
+          </p>
+          <p className="text-zinc-300/90 pl-5">
+            {spotlight.how}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // ─── Screenshot Switcher ──────────────────────────────────────────────────────
 
@@ -543,7 +631,7 @@ function ScreenshotSwitcher({ images, activeIdx, onSelect }) {
   if (images.length <= 1) return null;
   return (
     <div className="mb-5">
-      <p className={styles.modalSectionLabel}>Screenshots</p>
+      <p className={styles.modalSectionLabel}>Documentation</p>
       <div className="flex gap-3 overflow-x-auto pb-1">
         {images.map((img, idx) => {
           const isActive = idx === activeIdx;
@@ -584,7 +672,6 @@ function ScreenshotSwitcher({ images, activeIdx, onSelect }) {
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalImgIdx, setModalImgIdx] = useState(0);
-  const [modalTab, setModalTab] = useState("overview");
   const [openFeatureIdx, setOpenFeatureIdx] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
   const scrollRef = useRef(null);
@@ -593,7 +680,6 @@ export default function Projects() {
     setIsClosing(false);
     setSelectedProject(project);
     setModalImgIdx(imgIndex);
-    setModalTab("overview");
     setOpenFeatureIdx(null);
   }, []);
 
@@ -622,13 +708,6 @@ export default function Projects() {
     if (selectedProject) window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [selectedProject, closeProjectModal]);
-
-  const handleTabChange = (tab) => {
-    setModalTab(tab);
-    setOpenFeatureIdx(null);
-    // scroll tab content area back to top
-    if (scrollRef.current) scrollRef.current.scrollTop = 0;
-  };
 
   const toggleFeature = (idx) => {
     setOpenFeatureIdx((prev) => (prev === idx ? null : idx));
@@ -688,16 +767,26 @@ export default function Projects() {
               ref={scrollRef}
               className={styles.modalScrollArea}
             >
-              {/* Hero image — switches without animation wrapper (avoids layout shift) */}
+              {/* Hero image with smooth transition */}
               <div className={styles.modalImageWrapper}>
-                <Image
-                  key={selectedProject.images[modalImgIdx]?.src}
-                  src={selectedProject.images[modalImgIdx]?.src || selectedProject.images[0].src}
-                  alt={selectedProject.images[modalImgIdx]?.alt || selectedProject.title}
-                  width={1200}
-                  height={800}
-                  className={styles.modalImage}
-                />
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedProject.images[modalImgIdx]?.src}
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.02 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full h-full"
+                  >
+                    <Image
+                      src={selectedProject.images[modalImgIdx]?.src || selectedProject.images[0].src}
+                      alt={selectedProject.images[modalImgIdx]?.alt || selectedProject.title}
+                      width={1200}
+                      height={800}
+                      className={styles.modalImage}
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
               {/* Body */}
@@ -714,95 +803,23 @@ export default function Projects() {
                   onSelect={setModalImgIdx}
                 />
 
-                {/* Tabs */}
-                <div className={styles.modalTabsContainer}>
-                  {TABS.map(({ id, label, Icon }) => (
-                    <button
-                      key={id}
-                      type="button"
-                      onClick={() => handleTabChange(id)}
-                      className={`${styles.modalTabBtn} ${modalTab === id ? styles.modalTabActive : styles.modalTabInactive}`}
-                    >
-                      <Icon size={12} />
-                      {label}
-                    </button>
-                  ))}
-                </div>
+                {/* Screenshot Spotlight Card */}
+                {selectedProject.screenshotSpotlights && selectedProject.screenshotSpotlights[modalImgIdx] && (
+                  <SpotlightCard
+                    spotlight={selectedProject.screenshotSpotlights[modalImgIdx]}
+                    screenshotIndex={modalImgIdx}
+                    totalScreenshots={selectedProject.images.length}
+                  />
+                )}
 
-                {/* Tab content */}
-                <AnimatePresence mode="wait">
-
-                  {/* Overview */}
-                  {modalTab === "overview" && (
-                    <motion.div
-                      key="overview"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                      className={styles.overviewSection}
-                    >
-                      <p className={styles.overviewText}>{selectedProject.overview}</p>
-                      <div className="mt-6">
-                        <p className={styles.modalTechLabel}>
-                          <Cpu size={13} />
-                          Technologies &amp; Tools
-                        </p>
-                        <div className={styles.tagContainer}>
-                          {selectedProject.tags.map((tag) => (
-                            <span key={tag} className={styles.tag}>{tag}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Star Features */}
-                  {modalTab === "features" && (
-                    <motion.div
-                      key="features"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      <p className="text-xs text-zinc-500 font-mono mb-4">
-                        Click each feature to expand the full technical breakdown.
-                      </p>
-                      <div className="space-y-2.5">
-                        {selectedProject.starFeatures.map((feat, idx) => (
-                          <StarFeatureItem
-                            key={idx}
-                            feat={feat}
-                            isOpen={openFeatureIdx === idx}
-                            onToggle={() => toggleFeature(idx)}
-                          />
-                        ))}
-                      </div>
-                      <div className="mt-6">
-                        <p className={styles.modalTechLabel}>
-                          <Cpu size={13} />
-                          Technologies &amp; Tools
-                        </p>
-                        <div className={styles.tagContainer}>
-                          {selectedProject.tags.map((tag) => (
-                            <span key={tag} className={styles.tag}>{tag}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* S.T.A.R. */}
-                  {modalTab === "star" && selectedProject.starMethod && (
-                    <motion.div
-                      key="star"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                      className={styles.starMethodSection}
-                    >
+                {/* S.T.A.R. Case Study */}
+                {selectedProject.starMethod && (
+                  <div className="mb-8">
+                    <h4 className="text-xs uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-4 flex items-center gap-2">
+                      <Target size={13} />
+                      S.T.A.R. Case Study
+                    </h4>
+                    <div className={styles.starMethodSection}>
                       {STAR_STEPS.map(({ key, letter, badgeClass, label, subtitle, Icon, iconClass }) => (
                         <div key={key} className={styles.starMethodCard}>
                           <div className={styles.starMethodHeader}>
@@ -818,20 +835,56 @@ export default function Projects() {
                           </div>
                         </div>
                       ))}
-                      <div className="mt-2">
-                        <p className={styles.modalTechLabel}>
-                          <Cpu size={13} />
-                          Technologies &amp; Tools
-                        </p>
-                        <div className={styles.tagContainer}>
-                          {selectedProject.tags.map((tag) => (
-                            <span key={tag} className={styles.tag}>{tag}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                    </div>
+                  </div>
+                )}
+
+                {/* Star Features */}
+                {selectedProject.starFeatures?.length > 0 && (
+                  <div className="mb-8">
+                    <h4 className="text-xs uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-2 flex items-center gap-2">
+                      <Star size={13} />
+                      Star Features
+                    </h4>
+                    <p className="text-xs text-zinc-500 font-mono mb-4">
+                      Click each feature to expand the full technical breakdown.
+                    </p>
+                    <div className="space-y-2.5">
+                      {selectedProject.starFeatures.map((feat, idx) => (
+                        <StarFeatureItem
+                          key={idx}
+                          feat={feat}
+                          isOpen={openFeatureIdx === idx}
+                          onToggle={() => toggleFeature(idx)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Overview */}
+                <div className="mb-8">
+                  <h4 className="text-xs uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-4 flex items-center gap-2">
+                    <Layers size={13} />
+                    Overview
+                  </h4>
+                  <div className={styles.overviewSection}>
+                    <p className={styles.overviewText}>{selectedProject.overview}</p>
+                  </div>
+                </div>
+
+                {/* Technologies & Tools */}
+                <div>
+                  <p className={styles.modalTechLabel}>
+                    <Cpu size={13} />
+                    Technologies &amp; Tools
+                  </p>
+                  <div className={styles.tagContainer}>
+                    {selectedProject.tags.map((tag) => (
+                      <span key={tag} className={styles.tag}>{tag}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
