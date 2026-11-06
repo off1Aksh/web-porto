@@ -75,6 +75,7 @@ const projectsData = [
       { src: "/projects/INTERN 6.png", alt: "Per-Technician Performance Report" },
       { src: "/projects/INTERN 7.png", alt: "Asset Inventory & QR Management Interface" },
       { src: "/projects/INTERN 8.png", alt: "Inventory Movement & Audit Log Report" },
+      { src: "/projects/demo1.mp4", alt: "WhatsApp AI Triage Demo", type: "video" },
     ],
     screenshotSpotlights: [
       {
@@ -116,6 +117,11 @@ const projectsData = [
         title: "Inventory Movement & Audit Log Report",
         what: "Tracks every asset status change recorded in the system: loans, returns, repairs, damage reports, and losses. Pre-filtered tabs organize entries by status category for streamlined reporting. Full audit trail exportable to Excel and PDF.",
         how: "Audit log implemented as a PostgreSQL audit_logs table with foreign keys to assets and users. Each status transition writes an immutable log entry. React interface fetches paginated logs via Laravel API, with tabs driving status-filtered queries. Export logic reuses the PhpSpreadsheet and TCPDF pipeline."
+      },
+      {
+        title: "WhatsApp AI-Powered Ticket Creation",
+        what: "Demonstrates end-to-end ticket creation flow starting from an employee sending a problem report via WhatsApp message. The system automatically receives the message, processes it through DeepSeek AI for severity classification, and generates a structured ticket in the dashboard without any manual form filling.",
+        how: "WhatsApp Business API forwards incoming messages to N8N workflow automation webhook. N8N extracts message content and routes it to DeepSeek AI API for natural language processing and intent recognition. AI response includes severity_score, issue_category, and urgency_flag. If severity_score exceeds threshold (>7/10), N8N sends a POST request to Laravel API endpoint /api/tickets/create with structured JSON payload containing sender_id, issue_description, ai_severity, and timestamp. Ticket appears in dashboard with real-time WebSocket push notification."
       }
     ],
   },
@@ -573,10 +579,10 @@ function ProjectCard({ project, index, onOpen }) {
 // ─── STAR Steps config ────────────────────────────────────────────────────────
 
 const STAR_STEPS = [
-  { key: "situation", letter: "S", badgeClass: "starMethodBadgeSituation", label: "Situation", subtitle: "Background & Problem",       Icon: Compass, iconClass: "text-blue-400" },
-  { key: "task",      letter: "T", badgeClass: "starMethodBadgeTask",      label: "Task",      subtitle: "Objectives & Mission",        Icon: Target,  iconClass: "text-amber-400" },
-  { key: "action",    letter: "A", badgeClass: "starMethodBadgeAction",    label: "Action",    subtitle: "Engineering & Architecture",   Icon: Cpu,     iconClass: "text-orange-400" },
-  { key: "result",    letter: "R", badgeClass: "starMethodBadgeResult",    label: "Result",    subtitle: "Impact & Metrics",             Icon: Trophy,  iconClass: "text-emerald-400" },
+  { key: "situation", letter: "S", badgeClass: "starMethodBadgeSituation", label: "Situation", subtitle: "Background & Problem", Icon: Compass, iconClass: "text-blue-400" },
+  { key: "task", letter: "T", badgeClass: "starMethodBadgeTask", label: "Task", subtitle: "Objectives & Mission", Icon: Target, iconClass: "text-amber-400" },
+  { key: "action", letter: "A", badgeClass: "starMethodBadgeAction", label: "Action", subtitle: "Engineering & Architecture", Icon: Cpu, iconClass: "text-orange-400" },
+  { key: "result", letter: "R", badgeClass: "starMethodBadgeResult", label: "Result", subtitle: "Impact & Metrics", Icon: Trophy, iconClass: "text-emerald-400" },
 ];
 
 // ─── Screenshot Spotlight Card ────────────────────────────────────────────────
@@ -713,6 +719,14 @@ export default function Projects() {
     setOpenFeatureIdx((prev) => (prev === idx ? null : idx));
   };
 
+  const handleSwipe = (direction) => {
+    if (direction === "left" && modalImgIdx < selectedProject.images.length - 1) {
+      setModalImgIdx((prev) => prev + 1);
+    } else if (direction === "right" && modalImgIdx > 0) {
+      setModalImgIdx((prev) => prev - 1);
+    }
+  };
+
   return (
     <section id="projects" className={styles.section}>
       <div className={styles.container}>
@@ -762,12 +776,9 @@ export default function Projects() {
               <X size={18} />
             </button>
 
-            {/* Scrollable area */}
-            <div
-              ref={scrollRef}
-              className={styles.modalScrollArea}
-            >
-              {/* Hero image with smooth transition */}
+            {/* Left Column: Visual (Image/Video + Thumbnails) */}
+            <div className={styles.modalLeftColumn}>
+              {/* Hero image/video with smooth transition and swipe support */}
               <div className={styles.modalImageWrapper}>
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -776,113 +787,149 @@ export default function Projects() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.02 }}
                     transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full h-full"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
+                    onDragEnd={(e, { offset, velocity }) => {
+                      const swipeThreshold = 50;
+                      const swipeVelocityThreshold = 500;
+                      
+                      if (offset.x > swipeThreshold || velocity.x > swipeVelocityThreshold) {
+                        handleSwipe("right");
+                      } else if (offset.x < -swipeThreshold || velocity.x < -swipeVelocityThreshold) {
+                        handleSwipe("left");
+                      }
+                    }}
+                    className="w-full h-full cursor-grab active:cursor-grabbing flex items-center justify-center"
                   >
-                    <Image
-                      src={selectedProject.images[modalImgIdx]?.src || selectedProject.images[0].src}
-                      alt={selectedProject.images[modalImgIdx]?.alt || selectedProject.title}
-                      width={1200}
-                      height={800}
-                      className={styles.modalImage}
-                    />
+                    {selectedProject.images[modalImgIdx]?.type === "video" ? (
+                      <video
+                        src={selectedProject.images[modalImgIdx]?.src}
+                        className={styles.modalImage}
+                        controls
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        draggable={false}
+                      />
+                    ) : (
+                      <Image
+                        src={selectedProject.images[modalImgIdx]?.src || selectedProject.images[0].src}
+                        alt={selectedProject.images[modalImgIdx]?.alt || selectedProject.title}
+                        width={1200}
+                        height={800}
+                        className={styles.modalImage}
+                        draggable={false}
+                      />
+                    )}
                   </motion.div>
                 </AnimatePresence>
               </div>
 
-              {/* Body */}
-              <div className={styles.modalBody}>
-                <div className={styles.modalHeader}>
-                  <span className={styles.modalCategory}>{selectedProject.category}</span>
-                </div>
-                <h3 className={styles.modalTitle}>{selectedProject.title}</h3>
-
-                {/* Screenshot thumbnail switcher */}
+              {/* Screenshot thumbnail switcher - moved to left column bottom */}
+              <div className="p-4 border-t lg:border-t-0 border-white/5 bg-zinc-900">
                 <ScreenshotSwitcher
                   images={selectedProject.images}
                   activeIdx={modalImgIdx}
                   onSelect={setModalImgIdx}
                 />
+              </div>
+            </div>
 
-                {/* Screenshot Spotlight Card */}
-                {selectedProject.screenshotSpotlights && selectedProject.screenshotSpotlights[modalImgIdx] && (
-                  <SpotlightCard
-                    spotlight={selectedProject.screenshotSpotlights[modalImgIdx]}
-                    screenshotIndex={modalImgIdx}
-                    totalScreenshots={selectedProject.images.length}
-                  />
-                )}
+            {/* Right Column: Scrollable Content */}
+            <div className={styles.modalRightColumn}>
+              <div
+                ref={scrollRef}
+                className={styles.modalScrollArea}
+              >
+                <div className={styles.modalBody}>
+                  <div className={styles.modalHeader}>
+                    <span className={styles.modalCategory}>{selectedProject.category}</span>
+                  </div>
+                  <h3 className={styles.modalTitle}>{selectedProject.title}</h3>
 
-                {/* S.T.A.R. Case Study */}
-                {selectedProject.starMethod && (
-                  <div className="mb-8">
-                    <h4 className="text-xs uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-4 flex items-center gap-2">
-                      <Target size={13} />
-                      S.T.A.R. Case Study
-                    </h4>
-                    <div className={styles.starMethodSection}>
-                      {STAR_STEPS.map(({ key, letter, badgeClass, label, subtitle, Icon, iconClass }) => (
-                        <div key={key} className={styles.starMethodCard}>
-                          <div className={styles.starMethodHeader}>
-                            <span className={`${styles.starMethodBadge} ${styles[badgeClass]}`}>{letter}</span>
-                            <Icon size={14} className={iconClass} />
-                            <div className={styles.starMethodHeaderText}>
-                              <span className={styles.starMethodLabel}>{subtitle}</span>
-                              <span className={styles.starMethodTitle}>{label}</span>
+                  {/* Screenshot Spotlight Card */}
+                  {selectedProject.screenshotSpotlights && selectedProject.screenshotSpotlights[modalImgIdx] && (
+                    <SpotlightCard
+                      spotlight={selectedProject.screenshotSpotlights[modalImgIdx]}
+                      screenshotIndex={modalImgIdx}
+                      totalScreenshots={selectedProject.images.length}
+                    />
+                  )}
+
+                  {/* S.T.A.R. Case Study */}
+                  {selectedProject.starMethod && (
+                    <div className="mb-8">
+                      <h4 className="text-xs uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-4 flex items-center gap-2">
+                        <Target size={13} />
+                        S.T.A.R. Case Study
+                      </h4>
+                      <div className={styles.starMethodSection}>
+                        {STAR_STEPS.map(({ key, letter, badgeClass, label, subtitle, Icon, iconClass }) => (
+                          <div key={key} className={styles.starMethodCard}>
+                            <div className={styles.starMethodHeader}>
+                              <span className={`${styles.starMethodBadge} ${styles[badgeClass]}`}>{letter}</span>
+                              <Icon size={14} className={iconClass} />
+                              <div className={styles.starMethodHeaderText}>
+                                <span className={styles.starMethodLabel}>{subtitle}</span>
+                                <span className={styles.starMethodTitle}>{label}</span>
+                              </div>
+                            </div>
+                            <div className={styles.starMethodBody}>
+                              <p className={styles.starMethodText}>{selectedProject.starMethod[key]}</p>
                             </div>
                           </div>
-                          <div className={styles.starMethodBody}>
-                            <p className={styles.starMethodText}>{selectedProject.starMethod[key]}</p>
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* Star Features */}
-                {selectedProject.starFeatures?.length > 0 && (
+                  {/* Star Features */}
+                  {selectedProject.starFeatures?.length > 0 && (
+                    <div className="mb-8">
+                      <h4 className="text-xs uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-2 flex items-center gap-2">
+                        <Star size={13} />
+                        Star Features
+                      </h4>
+                      <p className="text-xs text-zinc-500 font-mono mb-4">
+                        Click each feature to expand the full technical breakdown.
+                      </p>
+                      <div className="space-y-2.5">
+                        {selectedProject.starFeatures.map((feat, idx) => (
+                          <StarFeatureItem
+                            key={idx}
+                            feat={feat}
+                            isOpen={openFeatureIdx === idx}
+                            onToggle={() => toggleFeature(idx)}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Overview */}
                   <div className="mb-8">
-                    <h4 className="text-xs uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-2 flex items-center gap-2">
-                      <Star size={13} />
-                      Star Features
+                    <h4 className="text-xs uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-4 flex items-center gap-2">
+                      <Layers size={13} />
+                      Overview
                     </h4>
-                    <p className="text-xs text-zinc-500 font-mono mb-4">
-                      Click each feature to expand the full technical breakdown.
-                    </p>
-                    <div className="space-y-2.5">
-                      {selectedProject.starFeatures.map((feat, idx) => (
-                        <StarFeatureItem
-                          key={idx}
-                          feat={feat}
-                          isOpen={openFeatureIdx === idx}
-                          onToggle={() => toggleFeature(idx)}
-                        />
-                      ))}
+                    <div className={styles.overviewSection}>
+                      <p className={styles.overviewText}>{selectedProject.overview}</p>
                     </div>
                   </div>
-                )}
 
-                {/* Overview */}
-                <div className="mb-8">
-                  <h4 className="text-xs uppercase tracking-wider text-orange-400/80 font-mono font-semibold mb-4 flex items-center gap-2">
-                    <Layers size={13} />
-                    Overview
-                  </h4>
-                  <div className={styles.overviewSection}>
-                    <p className={styles.overviewText}>{selectedProject.overview}</p>
-                  </div>
-                </div>
-
-                {/* Technologies & Tools */}
-                <div>
-                  <p className={styles.modalTechLabel}>
-                    <Cpu size={13} />
-                    Technologies &amp; Tools
-                  </p>
-                  <div className={styles.tagContainer}>
-                    {selectedProject.tags.map((tag) => (
-                      <span key={tag} className={styles.tag}>{tag}</span>
-                    ))}
+                  {/* Technologies & Tools */}
+                  <div>
+                    <p className={styles.modalTechLabel}>
+                      <Cpu size={13} />
+                      Technologies &amp; Tools
+                    </p>
+                    <div className={styles.tagContainer}>
+                      {selectedProject.tags.map((tag) => (
+                        <span key={tag} className={styles.tag}>{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
