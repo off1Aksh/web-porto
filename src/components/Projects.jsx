@@ -177,8 +177,50 @@ const projectsData = [
     },
     tags: ["Computer Vision (AI)", "Time-Series Forecasting", "React Native / Web", "Python / FastAPI", "Machine Learning"],
     images: [
-      { src: "/projects/PANGANPREDICT 2.png", alt: "PanganPredict Garlic Detection & Price Forecast App" },
-      { src: "/projects/PANGANPREDICT 1.png", alt: "Price Analysis & Forecast Trend Dashboard" },
+      { src: "/projects/PANGANPREDICT 1.png", alt: "PanganPredict Landing Page & System Overview" },
+      { src: "/projects/PANGANPREDICT 2.png", alt: "Dashboard Analisis Harga & Prediksi Multi-Komoditas" },
+      { src: "/projects/PANGANPREDICT 3.png", alt: "Dual-Area Chart: Historical vs Forecasted Price Visualization" },
+      { src: "/projects/PANGANPREDICT 4.jpeg", alt: "Mobile Camera-Based Commodity Detection Interface" },
+      { src: "/projects/PANGANPREDICT 5.jpeg", alt: "Mobile 7-Day Forecast Display & Prediction Timeline" },
+      { src: "/projects/PANGANPREDICT 6.jpeg", alt: "Historical Price Browser: 9-Year Data Exploration" },
+      { src: "/projects/PANGANPREDICT 7.jpeg", alt: "Monthly Price History Chart with Horizontal Scroll View" },
+    ],
+    screenshotSpotlights: [
+      {
+        title: "PanganPredict Landing Page & System Overview",
+        what: "Displays the web application homepage featuring a modern corporate analyst dashboard aesthetic with emerald-green accent palette and glassmorphism card design. The landing page introduces the dual-AI architecture of the system: Time-Series LSTM forecasting and MobileNetV2 computer vision, along with key system capabilities and call-to-action buttons directing users to the prediction dashboard.",
+        how: "Built using React 19.2 with Vite 7.3 as the bundler for Hot Module Replacement (HMR). Styled with Tailwind CSS 4.2 utility-first framework featuring custom emerald color scheme (#10b981). Page animations powered by Framer Motion 12 with physics-based spring transitions. Navigation implemented via React Router v7 client-side routing for seamless SPA experience."
+      },
+      {
+        title: "Dashboard Analisis Harga & Prediksi Multi-Komoditas",
+        what: "Serves as the central analytics hub displaying real-time current prices for all 8 strategic commodities (Beras, Bawang Merah, Bawang Putih, Cabai Merah, Cabai Rawit, Daging Ayam, Minyak Goreng, Telur Ayam) in interactive card format. Each commodity card features hover animations, last-known price in Indonesian Rupiah format, and a clickable interface to trigger individual 7-day forecasting. Includes admin authentication modal for uploading new PIHPS Excel data files.",
+        how: "Commodity cards rendered as React 19 components with Framer Motion whileHover and whileTap micro-interactions (y: -4px lift, scale: 1.02 zoom). Price formatting handled by browser-native Intl.NumberFormat API with 'id-ID' locale and 'currency' style. Admin login protected by JWT token authentication with HS256 signature algorithm. Excel upload triggers Flask /api/upload-excel endpoint with multipart/form-data payload, executing dynamic parsing via pandas and OpenPyXL library to extract date headers and commodity prices from irregular PIHPS worksheet layouts."
+      },
+      {
+        title: "Dual-Area Chart: Historical vs Forecasted Price Visualization",
+        what: "Visualizes a continuous price trajectory combining 30 days of historical market data (shown in emerald green gradient area) and 7 days of LSTM-predicted future prices (shown in warm amber area with dashed stroke). The chart includes interactive tooltips displaying exact date and price on hover, along with trend indicator badges comparing the H+7 projection against current H price to detect rising/stable/falling patterns.",
+        how: "Rendered using Recharts 3.8 library's ResponsiveContainer and AreaChart components with SVG-based declarative syntax. Historical data fetched via GET /api/latest-data endpoint returning a 30x8 matrix of prices. Forecast data obtained via POST /api/predict endpoint executing autoregressive multi-step iterative forecasting where each LSTM model predicts t+1, then uses that prediction as input for t+2 up to t+7. Data preprocessing includes MinMaxScaler normalization (range 0-1) loaded from scaler_master.gz joblib artifact. Custom Tooltip component formats Rupiah currency using Intl API and highlights the transition point between actual and predicted data with a vertical dashed separator line."
+      },
+      {
+        title: "Mobile Camera-Based Commodity Detection Interface",
+        what: "Mobile app home screen featuring instant visual scanning capability where users point their smartphone camera at a food commodity (rice, chili, onion, etc.) or select a photo from their gallery. The system automatically identifies the commodity type through computer vision inference and displays the detected class label with confidence percentage before triggering price forecasting.",
+        how: "Built with React Native 0.81.5 and Expo SDK 54. Camera access implemented via expo-camera (v17) launchCameraAsync with 1:1 aspect ratio and 0.8 quality compression. Gallery access via expo-image-picker (v17) launchImageLibraryAsync. Captured image sent to Flask backend endpoint POST /api/predict-image as multipart/form-data. Server performs MobileNetV2 inference on 224x224 RGB-resized input using pre-trained ImageNet base weights (frozen) with custom Softmax output layer for 8 commodity classes. Confidence thresholding at 0.40 (40%) implemented to reject ambiguous or non-commodity images, returning error response if threshold not met."
+      },
+      {
+        title: "Mobile 7-Day Forecast Display & Prediction Timeline",
+        what: "Displays the complete prediction result after successful commodity detection, showing last known actual price, 7-day ahead price projections in both tabular list format and smooth Bézier curve chart, and 30-day historical price context. The tabular list uses color-coded indicators: red for price increases, green for decreases, providing instant visual feedback on daily price movements.",
+        how: "Chart rendered using react-native-chart-kit LineChart component with bezierLine configuration for smooth curve interpolation. Data structure combines 30 historical prices (solid green line) and 7 forecast values (blue line) in a single continuous series. Color-coded list items determined by comparing each day's forecast against the previous day's value: if (price_day_n > price_day_n-1) then red indicator, else if lower then green, else neutral. Backend generates forecast via selected univariate LSTM model (specific to detected commodity) using sliding window technique with optimized parameters: e.g., Beras uses window_size=14, units=128, split=0.9; Cabai Rawit uses window_size=30, units=32, split=0.9 per grid search tuning results from 216 hyperparameter combinations."
+      },
+      {
+        title: "Historical Price Browser: 9-Year Data Exploration",
+        what: "Provides historical data browsing interface allowing users to select any commodity, year (2017-2026), and month to view complete daily price movements over the past 9 years. Displays statistical summary metrics including minimum price, maximum price, and monthly average. This feature is valuable for traders and government agencies analyzing long-term price trends, seasonal patterns, and volatility cycles.",
+        how: "Data served via Flask GET /api/history endpoint with query parameters: ?komoditas=beras&tahun=2025&bulan=8. Backend filters the master CSV dataset_harga_komoditas_2017_2026.csv by the requested date range using pandas date indexing. Missing dates pre-filled via LOCF (Last Observation Carried Forward) ffill() method during preprocessing to ensure continuous calendar continuity, reflecting real market behavior where Friday closing prices carry forward through weekends and national holidays when traditional markets are closed."
+      },
+      {
+        title: "Monthly Price History Chart with Horizontal Scroll View",
+        what: "Displays detailed monthly price movement chart with up to 31 daily data points for the selected month. Uses a dual-scroll technique where the Y-axis price scale remains fixed on the left side while the X-axis (dates) and line chart can be scrolled horizontally, solving the mobile layout challenge of rendering 31 date labels in a narrow screen without overlapping text.",
+        how: "Implemented with React Native ScrollView horizontal scroll enabled. Renders two chart components side-by-side: a transparent 'ghost chart' on the left displaying only the Y-axis price labels with static width, and the main LineChart component inside the ScrollView without Y-axis labels but containing the full 31-point data series and X-axis date labels. User can swipe horizontally to navigate through all dates while the price scale reference stays locked in viewport, maintaining readability on small mobile screens."
+      }
     ],
   },
   {
