@@ -804,7 +804,7 @@ export default function Projects() {
                     onDragEnd={(e, { offset, velocity }) => {
                       const swipeThreshold = 50;
                       const swipeVelocityThreshold = 500;
-                      
+
                       if (offset.x > swipeThreshold || velocity.x > swipeVelocityThreshold) {
                         handleSwipe("right");
                       } else if (offset.x < -swipeThreshold || velocity.x < -swipeVelocityThreshold) {
