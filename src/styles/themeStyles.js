@@ -132,20 +132,20 @@ export const projectsStyles = {
   linkButton: "text-xs text-orange-400 hover:text-orange-300 flex items-center gap-1.5 transition-colors font-medium cursor-pointer",
 
   // ── Modal Shell ──────────────────────────────────────────────
-  modalOverlay: "fixed inset-0 z-50 bg-zinc-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-anim",
+  modalOverlay: "fixed inset-0 z-50 bg-zinc-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-anim overflow-y-auto lg:overflow-hidden",
   modalOverlayExit: "fixed inset-0 z-50 bg-zinc-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 modal-backdrop-exit",
-  modalContent: "relative max-w-7xl w-full bg-zinc-900 border border-white/8 rounded-2xl shadow-2xl flex flex-col lg:flex-row max-h-[90vh] modal-content-anim overflow-hidden",
-  modalContentExit: "relative max-w-7xl w-full bg-zinc-900 border border-white/8 rounded-2xl shadow-2xl flex flex-col lg:flex-row max-h-[90vh] modal-content-exit overflow-hidden",
+  modalContent: "relative max-w-7xl w-full bg-zinc-900 border border-white/8 rounded-2xl shadow-2xl flex flex-col lg:flex-row my-auto lg:max-h-[90vh] modal-content-anim overflow-visible lg:overflow-hidden",
+  modalContentExit: "relative max-w-7xl w-full bg-zinc-900 border border-white/8 rounded-2xl shadow-2xl flex flex-col lg:flex-row my-auto lg:max-h-[90vh] modal-content-exit overflow-visible lg:overflow-hidden",
   modalClose: "absolute top-4 right-4 z-30 w-9 h-9 rounded-full bg-zinc-950/80 text-white flex items-center justify-center hover:bg-zinc-800 hover:text-orange-400 transition-all duration-200 border border-white/10 backdrop-blur-md",
 
   // ── Modal Left Column (Visual) ─────────────────────────────────
-  modalLeftColumn: "w-full lg:w-1/2 flex flex-col bg-zinc-950 lg:max-h-[90vh] shrink-0",
-  modalImageWrapper: "relative w-full h-[40vh] lg:flex-1 bg-zinc-950 flex items-center justify-center p-4 border-b lg:border-b-0 lg:border-r border-white/5",
+  modalLeftColumn: "w-full lg:w-1/2 flex flex-col bg-zinc-950 lg:h-full lg:overflow-y-auto shrink-0",
+  modalImageWrapper: "relative w-full h-[45vh] lg:h-[55vh] bg-zinc-950 flex items-center justify-center p-4 border-b border-white/5 shrink-0",
   modalImage: "max-h-full max-w-full object-contain rounded-lg",
 
   // ── Modal Right Column (Content) ───────────────────────────────
-  modalRightColumn: "w-full lg:w-1/2 flex flex-col overflow-hidden",
-  modalScrollArea: "overflow-y-auto overscroll-contain flex-1 min-h-0",
+  modalRightColumn: "w-full lg:w-1/2 flex flex-col lg:overflow-y-auto lg:h-full",
+  modalScrollArea: "flex-1 min-h-0",
 
   // ── Modal Body ────────────────────────────────────────────────
   modalBody: "p-6 sm:p-8 bg-zinc-900",
