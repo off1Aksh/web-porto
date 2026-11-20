@@ -17,6 +17,21 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
 });
 
+const particlePositions = [
+  { left: 15, top: 12 },
+  { left: 25, top: 78 },
+  { left: 45, top: 23 },
+  { left: 68, top: 65 },
+  { left: 82, top: 34 },
+  { left: 91, top: 89 },
+  { left: 38, top: 56 },
+  { left: 72, top: 18 },
+  { left: 8, top: 45 },
+  { left: 55, top: 92 },
+  { left: 19, top: 67 },
+  { left: 88, top: 51 },
+];
+
 export default function Hero() {
   return (
     <section id="home" className={styles.section}>
@@ -67,25 +82,25 @@ export default function Hero() {
         />
 
         {/* Floating Particles */}
-        {[...Array(12)].map((_, i) => (
+        {particlePositions.map((pos, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-orange-400/40 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${pos.left}%`,
+              top: `${pos.top}%`,
             }}
             animate={{
               y: [0, -100, 0],
-              x: [0, Math.random() * 50 - 25, 0],
+              x: [0, (i % 3) * 10 - 15, 0],
               opacity: [0, 0.8, 0],
               scale: [0, 1.5, 0],
             }}
             transition={{
-              duration: 3 + Math.random() * 4,
+              duration: 3 + (i % 4),
               repeat: Infinity,
               ease: "easeInOut",
-              delay: Math.random() * 5,
+              delay: i * 0.4,
             }}
           />
         ))}
