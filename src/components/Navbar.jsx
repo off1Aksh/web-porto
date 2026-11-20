@@ -19,6 +19,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
 
+  // Reset scroll position on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -41,8 +49,26 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (e, href) => {
+    e.preventDefault();
     setIsMobileOpen(false);
+    
+    // Small delay untuk mobile menu close animation
+    setTimeout(() => {
+      const targetId = href.replace('#', '');
+      const element = document.getElementById(targetId);
+      
+      if (element) {
+        const navbarHeight = 64;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
   };
 
   return (
@@ -71,6 +97,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleLinkClick(e, link.href)}
                 className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 group ${
                   activeSection === link.href ? "text-orange-400" : "text-zinc-400 hover:text-white"
                 }`}
@@ -114,19 +141,19 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden border-t border-white/5 bg-zinc-950/95 backdrop-blur-xl overflow-hidden"
+            className="md:hidden border-t border-white/5 bg-zinc-950/95 backdrop-blur-xl overflow-hidden pointer-events-auto"
           >
-            <div className="px-4 py-4 space-y-1">
+            <div className="px-4 py-4 space-y-1 relative z-50">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer ${
                     activeSection === link.href
                       ? "text-orange-400 bg-orange-500/10"
                       : "text-zinc-400 hover:text-white hover:bg-white/5"
                   }`}
-                  onClick={handleLinkClick}
+                  onClick={(e) => handleLinkClick(e, link.href)}
                 >
                   {link.label}
                 </a>
@@ -135,7 +162,7 @@ export default function Navbar() {
                 href="/cv.pdf"
                 download="CV_Akasha_Bin_Ali.pdf"
                 className="flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium text-orange-400 hover:text-orange-300 hover:bg-orange-500/5 transition-all duration-300"
-                onClick={handleLinkClick}
+                onClick={() => setIsMobileOpen(false)}
               >
                 <Download size={18} />
                 Download CV
