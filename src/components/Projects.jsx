@@ -790,7 +790,7 @@ export default function Projects() {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className={styles.sectionLabel}>What I&apos;ve Built</p>
-          <h2 className={styles.heading}>Projects Portfolio</h2>
+          <h2 className={styles.heading}>My Projects</h2>
           <div className={styles.headingAccent} />
           <p className={styles.subtitle}>
             Collection of real projects covering enterprise web development, artificial intelligence (AI), and integrated IoT hardware prototypes.

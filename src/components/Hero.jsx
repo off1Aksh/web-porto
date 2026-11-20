@@ -20,10 +20,76 @@ const fadeUp = (delay = 0) => ({
 export default function Hero() {
   return (
     <section id="home" className={styles.section}>
-      {/* Background Elements */}
-      <div className={styles.bgGlow1} />
-      <div className={styles.bgGlow2} />
-      <div className={styles.bgGrid} />
+      {/* Fixed Background Layer */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        {/* Orange Blobs - Enhanced Visibility */}
+        <motion.div
+          className="absolute top-0 right-1/4 w-[700px] h-[700px] bg-orange-500 rounded-full blur-[160px]"
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.15, 0.25, 0.15],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-orange-600 rounded-full blur-[140px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.15, 0.22, 0.15],
+            x: [0, -40, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
+
+        {/* Animated Grid */}
+        <motion.div
+          className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:80px_80px]"
+          animate={{
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Floating Particles */}
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-orange-400/40 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              x: [0, Math.random() * 50 - 25, 0],
+              opacity: [0, 0.8, 0],
+              scale: [0, 1.5, 0],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: Math.random() * 5,
+            }}
+          />
+        ))}
+      </div>
 
       <div className={styles.container}>
         <div className={styles.grid}>
@@ -33,7 +99,7 @@ export default function Hero() {
             {/* Badge Pill */}
             <motion.div {...fadeUp(0)} className={styles.badge}>
               <span className={styles.badgeDot} />
-              Web, AI &amp; IoT Engineer
+              Web, Application, AI &amp; AIoT Engineer
             </motion.div>
 
             {/* Headline */}
@@ -46,18 +112,18 @@ export default function Hero() {
             {/* Bio */}
             <motion.p {...fadeUp(0.2)} className={styles.bio}>
               Full-Stack Developer, AI Anthusiast &amp; AIoT Engineer. Freshgraduate of Politeknik Negeri Semarang
-              with GPA 3.63. Proficient in React, Laravel, Python, Machine Learning, and embedded systems.
+              with GPA 3.63. Proficient in React, Next, Laravel, Python, Machine Learning, and embedded systems.
             </motion.p>
 
             {/* CTA Buttons */}
             <motion.div {...fadeUp(0.3)} className={styles.buttonGroup}>
-              <a href="#contact" className={styles.primaryButton}>
+              <a href="#projects" className={styles.primaryButton}>
                 <Briefcase size={17} />
-                Start a Project
+                Projects
               </a>
-              <a href="#projects" className={styles.secondaryButton}>
-                See My Work
-                <ArrowRight size={17} />
+              <a href="#contact" className={styles.secondaryButton}>
+                <Mail size={17} />
+                Contact Me
               </a>
             </motion.div>
 
@@ -88,7 +154,7 @@ export default function Hero() {
               {/* Profile Photo Frame */}
               <div className={styles.photoFrame}>
                 <Image
-                  src="/profile.jpg"
+                  src="/profile.jpeg"
                   alt="Profile Photo"
                   fill
                   sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"

@@ -23,8 +23,8 @@ export const navbarStyles = {
 // --- Hero ---
 export const heroStyles = {
   section: "min-h-screen flex items-center justify-center relative overflow-hidden pt-16 bg-zinc-950",
-  bgGlow1: "absolute top-0 left-1/4 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-3xl pointer-events-none",
-  bgGlow2: "absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-orange-600/5 rounded-full blur-3xl pointer-events-none",
+  bgGlow1: "absolute top-0 right-1/4 w-[600px] h-[600px] bg-orange-500/10 rounded-full blur-[128px] pointer-events-none",
+  bgGlow2: "absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[128px] pointer-events-none",
   bgGrid: "absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:72px_72px] pointer-events-none",
 
   // Layout
@@ -67,7 +67,7 @@ export const heroStyles = {
 
 // --- Skills ---
 export const skillsStyles = {
-  section: "py-20 sm:py-28 bg-zinc-950 relative",
+  section: "py-20 sm:py-28 relative",
   container: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8",
   sectionLabel: "text-orange-500 text-xs font-mono font-medium tracking-widest uppercase mb-3",
   heading: "text-3xl sm:text-4xl font-bold text-white mb-3 tracking-tight",
@@ -88,7 +88,7 @@ export const skillsStyles = {
 
 // --- Projects ---
 export const projectsStyles = {
-  section: "py-20 sm:py-28 bg-zinc-900/30 relative border-y border-white/5",
+  section: "py-20 sm:py-28 relative",
   container: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8",
   sectionLabel: "text-orange-500 text-xs font-mono font-medium tracking-widest uppercase mb-3",
   heading: "text-3xl sm:text-4xl font-bold text-white mb-3 tracking-tight",
@@ -97,7 +97,7 @@ export const projectsStyles = {
 
   // Bento Grid – 3 cols with varying row spans
   grid: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4",
-  card: "bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden hover:border-orange-500/30 transition-[border-color,box-shadow] duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:shadow-xl hover:shadow-orange-500/5 will-change-transform flex flex-col group cursor-pointer",
+  card: "bg-zinc-900/50 border border-white/5 rounded-2xl overflow-hidden hover:border-orange-500/30 transition-[border-color,box-shadow] duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:shadow-xl hover:shadow-orange-500/5 will-change-transform flex flex-col group cursor-pointer",
 
   // Image and Carousel Styles
   imageContainer: "relative w-full h-52 bg-zinc-950 overflow-hidden cursor-pointer",
@@ -210,7 +210,7 @@ export const projectsStyles = {
 
 // --- Certifications ---
 export const certStyles = {
-  section: "py-20 sm:py-28 bg-zinc-950 relative",
+  section: "py-20 sm:py-28 relative",
   container: "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8",
   sectionLabel: "text-orange-500 text-xs font-mono font-medium tracking-widest uppercase mb-3",
   heading: "text-3xl sm:text-4xl font-bold text-white mb-3 tracking-tight",
