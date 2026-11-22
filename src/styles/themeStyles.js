@@ -28,7 +28,7 @@ export const heroStyles = {
   bgGrid: "absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:72px_72px] pointer-events-none",
 
   // Layout
-  container: "relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 w-full",
+  container: "relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24",
   grid: "grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center",
 
   // Left Column

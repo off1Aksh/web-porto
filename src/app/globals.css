@@ -7,7 +7,7 @@
 
 /* Smooth scrolling for anchor navigation */
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior handled by Lenis */
 }
 
 /* Lock body scroll when modal is open */
