@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Menu, X, Download } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X, Download, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const navLinks = [
@@ -18,6 +18,8 @@ export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
+  const [cvDropdownOpen, setCvDropdownOpen] = useState(false);
+  const cvDropdownRef = useRef(null);
 
   // Reset scroll position on mount
   useEffect(() => {
@@ -25,6 +27,18 @@ export default function Navbar() {
       window.history.scrollRestoration = 'manual';
       window.scrollTo(0, 0);
     }
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cvDropdownRef.current && !cvDropdownRef.current.contains(event.target)) {
+        setCvDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   useEffect(() => {
@@ -112,15 +126,49 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Download CV - Right */}
-          <a
-            href="/cv.pdf"
-            download="CV_Akasha_Bin_Ali.pdf"
-            className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium text-orange-400 hover:text-orange-300 border border-orange-500/30 hover:border-orange-500/50 rounded-lg transition-all duration-300 hover:bg-orange-500/5"
-          >
-            <Download size={16} />
-            Download CV
-          </a>
+          {/* Download CV - Right with Dropdown */}
+          <div className="hidden md:block relative" ref={cvDropdownRef}>
+            <button
+              onClick={() => setCvDropdownOpen(!cvDropdownOpen)}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-orange-400 hover:text-orange-300 border border-orange-500/30 hover:border-orange-500/50 rounded-lg transition-all duration-300 hover:bg-orange-500/5"
+            >
+              <Download size={16} />
+              Download CV
+              <ChevronDown size={16} className={`transition-transform duration-300 ${cvDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* Dropdown Menu */}
+            <AnimatePresence>
+              {cvDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute right-0 mt-2 w-48 bg-zinc-900/95 backdrop-blur-xl border border-white/10 rounded-lg shadow-xl shadow-black/20 overflow-hidden z-50"
+                >
+                  <a
+                    href="/cv.pdf"
+                    download="CV_Akasha_Bin_Ali_ID.pdf"
+                    onClick={() => setCvDropdownOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-orange-500/10 transition-colors"
+                  >
+                    <Download size={16} className="text-orange-400" />
+                    CV Indonesia
+                  </a>
+                  <a
+                    href="/cv_eng.pdf"
+                    download="CV_Akasha_Bin_Ali_EN.pdf"
+                    onClick={() => setCvDropdownOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-orange-500/10 transition-colors border-t border-white/5"
+                  >
+                    <Download size={16} className="text-orange-400" />
+                    CV English
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -158,15 +206,29 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <a
-                href="/cv.pdf"
-                download="CV_Akasha_Bin_Ali.pdf"
-                className="flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium text-orange-400 hover:text-orange-300 hover:bg-orange-500/5 transition-all duration-300"
-                onClick={() => setIsMobileOpen(false)}
-              >
-                <Download size={18} />
-                Download CV
-              </a>
+
+              {/* Mobile CV Dropdown */}
+              <div className="pt-2 border-t border-white/5">
+                <div className="text-xs font-medium text-zinc-500 px-4 py-2">DOWNLOAD CV</div>
+                <a
+                  href="/cv.pdf"
+                  download="CV_Akasha_Bin_Ali_ID.pdf"
+                  onClick={() => setIsMobileOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-orange-500/5 transition-all duration-300"
+                >
+                  <Download size={18} className="text-orange-400" />
+                  CV Indonesia
+                </a>
+                <a
+                  href="/cv_eng.pdf"
+                  download="CV_Akasha_Bin_Ali_EN.pdf"
+                  onClick={() => setIsMobileOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-orange-500/5 transition-all duration-300"
+                >
+                  <Download size={18} className="text-orange-400" />
+                  CV English
+                </a>
+              </div>
 
             </div>
           </motion.div>
