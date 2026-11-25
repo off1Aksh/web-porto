@@ -751,14 +751,16 @@ export default function Projects() {
     }, 200);
   }, [isClosing]);
 
-  // Lock body scroll while modal is open
+  // Lock body scroll while modal is open (keep Lenis running)
   useEffect(() => {
     if (selectedProject) {
       document.body.classList.add("modal-open");
     } else {
       document.body.classList.remove("modal-open");
     }
-    return () => document.body.classList.remove("modal-open");
+    return () => {
+      document.body.classList.remove("modal-open");
+    };
   }, [selectedProject]);
 
   // Close on Escape
@@ -891,7 +893,7 @@ export default function Projects() {
             </div>
 
             {/* Right Column: Scrollable Content */}
-            <div className={styles.modalRightColumn}>
+            <div className={styles.modalRightColumn} data-lenis-prevent>
               <div
                 ref={scrollRef}
                 className={styles.modalScrollArea}
